@@ -19,7 +19,7 @@
 
 静态变量（包括全局变量、编译单元级的 static、名字空间和类内的 static 和局部 static）。静态变量在编译时就预留了空间（信息放在目标和可执行文件中）
 
-同样：和局部变量类似，要看它们内部成员有没有动态分配的。如果非局部的静态对象内部有动态分配的成员，CRT 会在进入 main\(\) 函数前执行堆分配算法。因为静态对象的生存期是到程序结束，所以它们**内部的动态分配成员需要手工释放**（如用 copy-and-swap 惯用法释放 `std::vector` 或 `std::basic_string`[\[1\]](https://www.zhihu.com/question/379456802/answer/1092360699#ref_1)），以避免内存泄露检测例程给出误判
+同样：和局部变量类似，要看它们内部成员有没有动态分配的。如果非局部的静态对象内部有动态分配的成员，CRT 会在进入 main\(\) 函数前执行堆分配算法。因为静态对象的生存期是到程序结束，所以它们**内部的动态分配成员需要手工释放**（如用 copy-and-swap 惯用法释放 `std::vector` 或 `std::basic_string`），以避免内存泄露检测例程给出误判
 
 ## 栈大小是固定的，而且很小
 
@@ -27,13 +27,13 @@
 
 相比于堆，栈的大小很小，可能才1MB
 
-如果你利用栈实现一些算法——典型地是递归算法，例如递归下降分析器 \(recursive descent parser\) 或深度优先搜索 \(depth-first search\)[\[6\]](https://www.zhihu.com/question/379456802/answer/1092360699#ref_6)，当问题规模很大时就会**栈溢出 \(stack overflow\)**
+如果你利用栈实现一些算法——典型地是递归算法，例如递归下降分析器 \(recursive descent parser\) 或深度优先搜索 \(depth-first search\)，当问题规模很大时就会**栈溢出 \(stack overflow\)**
 
 **自定义栈**：将递归算法变换为非递归算法，考验程序员功力。简单问题容易用循环替代，复杂问题呢**用自定义的栈结构代替调用栈，而在堆中分配自定义的栈结构（比如用 `std::deque`）**。
 
 ## STL动态容器都是分配的动态内存（堆）
 
-C++ 中的 `operator new/new[]`、`std::vector` 等，其实都是调用接口（一种约定的形式），**它们实际上是在堆、栈，还是特殊的内存空间中分配存储，都是可以自定义的**[\[1\]]()[\[8\]]()。`std::shared_ptr`是比 `operator new` 更良好的形式，而 `std::vector` 或 `std::basic_string`（当元素是 char/wchar\_t 时）是比 `operator new[]`更良好的形式。
+C++ 中的 `operator new/new[]`、`std::vector` 等，其实都是调用接口（一种约定的形式），**它们实际上是在堆、栈，还是特殊的内存空间中分配存储，都是可以自定义的**。`std::shared_ptr`是比 `operator new` 更良好的形式，而 `std::vector` 或 `std::basic_string`（当元素是 char/wchar\_t 时）是比 `operator new[]`更良好的形式。
 
 一个例子：vector存放string，这些string是在连续的地址空间吗？
 
@@ -43,5 +43,5 @@ C++ 中的 `operator new/new[]`、`std::vector` 等，其实都是调用接口�
 
 即使要分配的是普通的堆内存，**为了特殊的效率需求，有时也要用自定义分配算法**，代替默认的系统或 CRT 堆算法。
 
-**分配池：**最简单的情况是，无需写 allocator，在某个过程初始化时，预分配足够的堆内存（如调用 `std::vector::reserve()`[\[1\]](https://www.zhihu.com/question/379456802/answer/1092360699#ref_1)），然后应用逻辑运行时，只是赋值、操作这些已分配内存。这种思想叫做分配池 \(pooling\)。
+**分配池：**最简单的情况是，无需写 allocator，在某个过程初始化时，预分配足够的堆内存（如调用 `std::vector::reserve()`），然后应用逻辑运行时，只是赋值、操作这些已分配内存。这种思想叫做分配池 \(pooling\)。
 
