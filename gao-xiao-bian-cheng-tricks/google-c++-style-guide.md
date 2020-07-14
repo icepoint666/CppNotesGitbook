@@ -1,0 +1,2 @@
+# Google C++ Style Guide
+
