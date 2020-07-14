@@ -10,7 +10,7 @@
 
 ## 运算符
 
-* [Untitled](yun-suan-fu/untitled.md)
+* [sizeof](yun-suan-fu/untitled.md)
 
 ## 数据
 
@@ -20,9 +20,15 @@
 
 ## 关键字
 
+* [const](guan-jian-zi/const.md)
 * [constexpr](guan-jian-zi/constexpr.md)
+* [extern](guan-jian-zi/extern.md)
+* [static](guan-jian-zi/static.md)
+* [using](guan-jian-zi/using.md)
 * [inline](guan-jian-zi/inline.md)
 * [volatile](guan-jian-zi/volatile.md)
+* [auto](guan-jian-zi/auto.md)
+* [decltype](guan-jian-zi/decltype.md)
 
 ## 内存管理
 
