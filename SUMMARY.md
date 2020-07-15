@@ -34,6 +34,11 @@
 
 * [栈与堆](nei-cun-guan-li/zhan-yu-dui.md)
 
+## 面向对象
+
+* [虚表 函数绑定](mian-xiang-dui-xiang/xu-biao-han-shu-bang-ding.md)
+* [虚函数，虚继承内存模型](mian-xiang-dui-xiang/xu-han-shu-xu-ji-cheng-nei-cun-mo-xing.md)
+
 ## 高效编程tricks
 
 * [Google编程格式规范](gao-xiao-bian-cheng-tricks/google-bian-cheng-ge-shi-gui-fan.md)
