@@ -1,5 +1,136 @@
 # sizeof，内存对齐
 
+sizeof是运算符
+
+### sizeof计算类大小原则
+
+* 空类的大小为1字节
+* 类中**虚函数本身**、**成员函数**（包括静态与非静态）和**静态数据成员**都是不占用类对象的存储空间 （因为本身类成员函数并不是真正的封装在对象中）
+* 普通继承，派生类继承了所有基类的函数与成员，要按照**字节对齐**来计算大小
+* 对于包含虚函数的类，不管有多少个虚函数，只有一个虚指针,vptr的大小
+
+  vptr指针大小是8\(32位操作系统4字节，64位操作系统 8字节\)
+
+  虚函数继承，不管是单继承还是多继承，都是继承了基类的vptr
+
+  派生类虚继承多个虚函数会继承所有函数的vptr
+
+示例1：
+
+```cpp
+#include<iostream>
+using namespace std;
+class A
+{
+    public:
+        char b;
+        virtual void fun() {};
+        static int c;
+        static int d;
+        static int f;
+};
+
+int main()
+{
+    cout<<sizeof(A)<<endl; //16  字节对齐、静态变量不影响类的大小、vptr指针=8
+    return 0;
+}
+```
+
+示例2：
+
+```cpp
+#include<iostream>
+using namespace std;
+class A{
+    virtual void fun();
+    virtual void fun1();
+    virtual void fun2();
+    virtual void fun3();
+};
+int main()
+{
+    cout<<sizeof(A)<<endl; // 8 不管有多少个虚函数，只有一个虚指针,vptr的大小
+    return 0;
+}
+```
+
+示例3：
+
+```cpp
+#include<iostream>
+using namespace std;
+class A
+{
+    public:
+        char a;
+        int b;
+};
+
+/**
+ * @brief 此时B按照顺序：
+ * char a
+ * int b
+ * short a
+ * long b
+ * 根据字节对齐4+4=8+8+8=24
+ */
+class B:A
+{
+    public:
+        short a;
+        long b;
+};
+class C
+{
+    A a;
+    char c;
+};
+class A1
+{
+    virtual void fun(){}
+};
+class C1:public A1
+{
+};
+
+int main()
+{
+    cout<<sizeof(A)<<endl; // 8
+    cout<<sizeof(B)<<endl; // 24
+    cout<<sizeof(C)<<endl; // 12
+    cout<<sizeof(C1)<<endl; // 8  对于虚单函数继承，派生类也继承了基类的vptr，所以是8字节
+    return 0;
+}
+```
+
+示例4：
+
+```cpp
+#include<iostream>
+using namespace std;
+class A
+{
+    virtual void fun() {}
+};
+class B
+{
+    virtual void fun2() {}
+};
+class C : virtual public  A, virtual public B
+{
+    public:
+        virtual void fun3() {}
+};
+
+int main()
+{
+    cout<<sizeof(A)<<" "<<sizeof(B)<<" "<<sizeof(C);
+    //8 8 16  派生类虚继承多个虚函数，会继承所有虚函数的vptr
+    return 0;
+}
+```
+
 ### 内存对齐是什么
 
 概念：实际的计算机系统**对基本类型数据在内存中存放的位置有限制**，它们会**要求这些数据的首地址的值是某个数k（通常它为4或8）的倍数**，这就是所谓的**内存对齐**。
