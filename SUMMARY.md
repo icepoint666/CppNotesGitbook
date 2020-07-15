@@ -27,7 +27,6 @@
 * [using](guan-jian-zi/using.md)
 * [inline](guan-jian-zi/inline.md)
 * [volatile](guan-jian-zi/volatile.md)
-* [auto](guan-jian-zi/auto.md)
 * [decltype](guan-jian-zi/decltype.md)
 
 ## 内存管理
