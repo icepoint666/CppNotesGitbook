@@ -7,6 +7,7 @@
 ## 语言相关
 
 * [C/C++语言上的特性](yu-yan-xiang-guan/cc++-yu-yan-shang-de-te-xing.md)
+* [C++中的POD类型](yu-yan-xiang-guan/c++-zhong-de-pod-lei-xing.md)
 
 ## 运算符
 
@@ -48,6 +49,7 @@
 
 ## 不常用知识
 
+* [c++中的stdio.h与cstdio](bu-chang-yong-zhi-shi/c++-zhong-de-stdio.h-yu-cstdio.md)
 * [执行效率](bu-chang-yong-zhi-shi/zhi-hang-xiao-lv/README.md)
   * [Duff's device算法优化循环](bu-chang-yong-zhi-shi/zhi-hang-xiao-lv/duffs-device-suan-fa-you-hua-xun-huan.md)
 * [汇编语言相关](bu-chang-yong-zhi-shi/hui-bian-yu-yan-xiang-guan/README.md)
