@@ -44,6 +44,7 @@
 * [Effective C++](gao-xiao-bian-cheng-tricks/effective-c++.md)
 * [More Effective C++](gao-xiao-bian-cheng-tricks/more-effective-c++.md)
 * [Google C++ Style Guide](gao-xiao-bian-cheng-tricks/google-c++-style-guide.md)
+* [现代C++](gao-xiao-bian-cheng-tricks/xian-dai-c++.md)
 
 ## 不常用知识
 
@@ -57,6 +58,7 @@
 ## 项目阅读笔记 <a id="xiang-mu-yue-du-bi-ji-1"></a>
 
 * [泛型编程](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/README.md)
+  * [Traits编程技法获取迭代器取值类型](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/traits-bian-cheng-ji-fa-huo-qu-die-dai-qi-qu-zhi-lei-xing.md)
   * [输出STL容器值](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/shu-chu-stl-rong-qi-zhi.md)
 
 ## 面试问题
