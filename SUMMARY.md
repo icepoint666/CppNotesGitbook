@@ -49,13 +49,13 @@
 
 ## 不常用知识
 
-* [c++中的stdio.h与cstdio](bu-chang-yong-zhi-shi/c++-zhong-de-stdio.h-yu-cstdio.md)
 * [执行效率](bu-chang-yong-zhi-shi/zhi-hang-xiao-lv/README.md)
   * [Duff's device算法优化循环](bu-chang-yong-zhi-shi/zhi-hang-xiao-lv/duffs-device-suan-fa-you-hua-xun-huan.md)
 * [汇编语言相关](bu-chang-yong-zhi-shi/hui-bian-yu-yan-xiang-guan/README.md)
   * [\[1\]汇编语言概念，寄存器，内存模型](bu-chang-yong-zhi-shi/hui-bian-yu-yan-xiang-guan/1-hui-bian-yu-yan-gai-nian-ji-cun-qi-nei-cun-mo-xing.md)
   * [\[2\] C程序与汇编语言对应代码](bu-chang-yong-zhi-shi/hui-bian-yu-yan-xiang-guan/2-c-cheng-xu-yu-hui-bian-yu-yan-dui-ying-dai-ma.md)
   * [C语言与汇编语言对应代码](bu-chang-yong-zhi-shi/hui-bian-yu-yan-xiang-guan/c-yu-yan-yu-hui-bian-yu-yan-dui-ying-dai-ma.md)
+* [c++中的stdio.h与cstdio](bu-chang-yong-zhi-shi/c++-zhong-de-stdio.h-yu-cstdio.md)
 
 ## 项目阅读笔记 <a id="xiang-mu-yue-du-bi-ji-1"></a>
 
