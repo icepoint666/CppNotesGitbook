@@ -58,7 +58,7 @@ constexpr int mf = func(argv[2]); //不是常量表达式，会报错
 
 所以constexpr修饰的函数，返回值不一定是编译期常量
 
-**关键理解示例：**
+**关键理解示例：（展示了编译时求值的其中一个好处：可以直接定义类型的长度）**
 
 ```cpp
 #include <iostream>
