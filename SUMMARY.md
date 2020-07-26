@@ -8,6 +8,7 @@
 
 * [C/C++语言上的特性](yu-yan-xiang-guan/cc++-yu-yan-shang-de-te-xing.md)
 * [C++中的POD类型](yu-yan-xiang-guan/c++-zhong-de-pod-lei-xing.md)
+* [C++语法的复杂度](yu-yan-xiang-guan/c++-yu-fa-de-fu-za-du.md)
 
 ## 运算符
 
