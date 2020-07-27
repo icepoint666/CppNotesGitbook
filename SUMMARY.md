@@ -41,9 +41,11 @@
 
 ## 面向对象
 
+* [默认构造函数](mian-xiang-dui-xiang/mo-ren-gou-zao-han-shu.md)
 * [虚函数](mian-xiang-dui-xiang/xu-han-shu.md)
 * [虚表 函数绑定](mian-xiang-dui-xiang/xu-biao-han-shu-bang-ding.md)
 * [虚函数，虚继承内存模型](mian-xiang-dui-xiang/xu-han-shu-xu-ji-cheng-nei-cun-mo-xing.md)
+* [单例模式](mian-xiang-dui-xiang/dan-li-mo-shi.md)
 
 ## STL
 

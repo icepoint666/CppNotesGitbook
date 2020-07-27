@@ -22,3 +22,9 @@ int main()
 //结果会输出Ss
 ```
 
+### 可以用来判断变量类型
+
+```cpp
+cout << (typeid(t) == typeid(b)) << endl;
+```
+
