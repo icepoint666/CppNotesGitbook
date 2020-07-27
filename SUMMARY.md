@@ -27,10 +27,13 @@
 * [constexpr](guan-jian-zi/constexpr.md)
 * [extern](guan-jian-zi/extern.md)
 * [static](guan-jian-zi/static.md)
+* [this](guan-jian-zi/this.md)
 * [using](guan-jian-zi/using.md)
 * [inline](guan-jian-zi/inline.md)
 * [volatile](guan-jian-zi/volatile.md)
 * [decltype](guan-jian-zi/decltype.md)
+* [=default, =delete](guan-jian-zi/default-delete.md)
+* [namespace](guan-jian-zi/namespace.md)
 
 ## 内存管理
 
@@ -38,8 +41,13 @@
 
 ## 面向对象
 
+* [虚函数](mian-xiang-dui-xiang/xu-han-shu.md)
 * [虚表 函数绑定](mian-xiang-dui-xiang/xu-biao-han-shu-bang-ding.md)
 * [虚函数，虚继承内存模型](mian-xiang-dui-xiang/xu-han-shu-xu-ji-cheng-nei-cun-mo-xing.md)
+
+## STL
+
+* [Untitled](stl/untitled.md)
 
 ## 高效编程tricks
 
