@@ -38,6 +38,8 @@
 ## 内存管理
 
 * [栈与堆](nei-cun-guan-li/zhan-yu-dui.md)
+* [C++ 垃圾回收\(gc\)](nei-cun-guan-li/c++-la-ji-hui-shou-gc.md)
+* [RAII思想](nei-cun-guan-li/raii-si-xiang.md)
 
 ## 面向对象
 
@@ -73,6 +75,7 @@
 ## 项目阅读笔记 <a id="xiang-mu-yue-du-bi-ji-1"></a>
 
 * [泛型编程](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/README.md)
+  * [定位内存泄漏](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/ding-wei-nei-cun-xie-lou.md)
   * [Traits编程技法获取迭代器取值类型](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/traits-bian-cheng-ji-fa-huo-qu-die-dai-qi-qu-zhi-lei-xing.md)
   * [输出STL容器值](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/shu-chu-stl-rong-qi-zhi.md)
 
