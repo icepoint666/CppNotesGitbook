@@ -20,6 +20,7 @@
 * [类型转换](shu-ju/lei-xing-zhuan-huan/README.md)
   * [c++输出变量类型](shu-ju/lei-xing-zhuan-huan/c++-shu-chu-bian-liang-lei-xing.md)
   * [C++中std::string转换为int类型](shu-ju/lei-xing-zhuan-huan/c++-zhong-stdstring-zhuan-huan-wei-int-lei-xing.md)
+  * [C++中四种cast类型转换](shu-ju/lei-xing-zhuan-huan/c++-zhong-si-zhong-cast-lei-xing-zhuan-huan.md)
 
 ## 关键字
 
@@ -40,6 +41,7 @@
 * [栈与堆](nei-cun-guan-li/zhan-yu-dui.md)
 * [C++ 垃圾回收\(gc\)](nei-cun-guan-li/c++-la-ji-hui-shou-gc.md)
 * [RAII思想](nei-cun-guan-li/raii-si-xiang.md)
+* [智能指针](nei-cun-guan-li/zhi-neng-zhi-zhen.md)
 
 ## 面向对象
 
@@ -48,9 +50,9 @@
 * [虚表 函数绑定](mian-xiang-dui-xiang/xu-biao-han-shu-bang-ding.md)
 * [虚函数，虚继承内存模型](mian-xiang-dui-xiang/xu-han-shu-xu-ji-cheng-nei-cun-mo-xing.md)
 * [单例模式](mian-xiang-dui-xiang/dan-li-mo-shi.md)
-* [移动构造函数意义](mian-xiang-dui-xiang/yi-dong-gou-zao-han-shu-yi-yi.md)
-* [深入std::move右值引用](mian-xiang-dui-xiang/shen-ru-stdmove-you-zhi-yin-yong.md)
-* [深入std::forward完美转发](mian-xiang-dui-xiang/shen-ru-stdforward-wan-mei-zhuan-fa.md)
+* [移动构造函数意义，右值](mian-xiang-dui-xiang/yi-dong-gou-zao-han-shu-yi-yi.md)
+* [深入std::move的实现](mian-xiang-dui-xiang/shen-ru-stdmove-you-zhi-yin-yong.md)
+* [深入std::forward完美转发的实现](mian-xiang-dui-xiang/shen-ru-stdforward-wan-mei-zhuan-fa.md)
 
 ## STL
 
