@@ -17,8 +17,8 @@
 
 ## 数据
 
+* [输出变量类型](shu-ju/c++-shu-chu-bian-liang-lei-xing.md)
 * [类型转换](shu-ju/lei-xing-zhuan-huan/README.md)
-  * [c++输出变量类型](shu-ju/lei-xing-zhuan-huan/c++-shu-chu-bian-liang-lei-xing.md)
   * [C++中std::string转换为int类型](shu-ju/lei-xing-zhuan-huan/c++-zhong-stdstring-zhuan-huan-wei-int-lei-xing.md)
   * [C++中四种cast类型转换](shu-ju/lei-xing-zhuan-huan/c++-zhong-si-zhong-cast-lei-xing-zhuan-huan.md)
 
