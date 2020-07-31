@@ -48,6 +48,9 @@
 * [虚表 函数绑定](mian-xiang-dui-xiang/xu-biao-han-shu-bang-ding.md)
 * [虚函数，虚继承内存模型](mian-xiang-dui-xiang/xu-han-shu-xu-ji-cheng-nei-cun-mo-xing.md)
 * [单例模式](mian-xiang-dui-xiang/dan-li-mo-shi.md)
+* [移动构造函数意义](mian-xiang-dui-xiang/yi-dong-gou-zao-han-shu-yi-yi.md)
+* [深入std::move右值引用](mian-xiang-dui-xiang/shen-ru-stdmove-you-zhi-yin-yong.md)
+* [深入std::forward完美转发](mian-xiang-dui-xiang/shen-ru-stdforward-wan-mei-zhuan-fa.md)
 
 ## STL
 
