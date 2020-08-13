@@ -34,8 +34,9 @@
 * [volatile](guan-jian-zi/volatile.md)
 * [decltype](guan-jian-zi/decltype.md)
 * [=default, =delete](guan-jian-zi/default-delete.md)
-* [namespace](guan-jian-zi/namespace.md)
+* [namespace, ::运算符](guan-jian-zi/namespace.md)
 * [union](guan-jian-zi/union.md)
+* [explicit](guan-jian-zi/explicit.md)
 
 ## 内存管理
 
@@ -46,6 +47,7 @@
 
 ## 面向对象
 
+* [多态](mian-xiang-dui-xiang/duo-tai.md)
 * [默认构造函数](mian-xiang-dui-xiang/mo-ren-gou-zao-han-shu.md)
 * [虚函数](mian-xiang-dui-xiang/xu-han-shu.md)
 * [虚表 函数绑定](mian-xiang-dui-xiang/xu-biao-han-shu-bang-ding.md)
