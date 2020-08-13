@@ -22,6 +22,10 @@
   * [C++中std::string转换为int类型](shu-ju/lei-xing-zhuan-huan/c++-zhong-stdstring-zhuan-huan-wei-int-lei-xing.md)
   * [C++中四种cast类型转换](shu-ju/lei-xing-zhuan-huan/c++-zhong-si-zhong-cast-lei-xing-zhuan-huan.md)
 
+## 字符串
+
+* [strcpy, strcmp的实现](zi-fu-chuan/strcpy-strcmp-de-shi-xian.md)
+
 ## 关键字
 
 * [const](guan-jian-zi/const.md)
@@ -49,7 +53,7 @@
 
 ## 面向对象
 
-* [多态](mian-xiang-dui-xiang/duo-tai.md)
+* [多态（两类四种）](mian-xiang-dui-xiang/duo-tai.md)
 * [默认构造函数](mian-xiang-dui-xiang/mo-ren-gou-zao-han-shu.md)
 * [虚函数](mian-xiang-dui-xiang/xu-han-shu.md)
 * [虚表 函数绑定](mian-xiang-dui-xiang/xu-biao-han-shu-bang-ding.md)
@@ -62,6 +66,7 @@
 ## STL
 
 * [find，remove，erase](stl/untitled.md)
+* [STL六大组件](stl/stl-liu-da-zu-jian.md)
 
 ## 高效编程tricks
 

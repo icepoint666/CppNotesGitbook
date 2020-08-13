@@ -1,4 +1,4 @@
-# 多态
+# 多态（两类四种）
 
 消息以多种形式显示的能力，多态是以封装和继承为基础的。
 
@@ -6,12 +6,17 @@
 
 [https://catonmat.net/cpp-polymorphism](https://catonmat.net/cpp-polymorphism)
 
+总的来说分为两类：
+
+* 静态多态（编译时多态）：重载，模板
+* 动态多态（运行时多态）：虚函数（重写）
+
+讲多态可以讲这四种
+
 1. 重载多态（Ad-hoc Polymorphism，编译期）：函数重载、运算符重载
 2. 子类型多态（Subtype Polymorphism，运行期）：虚函数
 3. 参数多态性（Parametric Polymorphism，编译期）：类模板、函数模板
 4. 强制多态（Coercion Polymorphism，编译期/运行期）：基本类型转换、自定义类型转换
-
-讲多态可以这样讲这四个
 
 
 
