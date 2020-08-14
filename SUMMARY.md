@@ -50,6 +50,7 @@
 * [malloc、calloc、realloc、alloca](nei-cun-guan-li/malloc-calloc-realloc-alloca.md)
 * [new, delete, 定位 new](nei-cun-guan-li/new-delete-ding-wei-new.md)
 * [智能指针](nei-cun-guan-li/zhi-neng-zhi-zhen.md)
+* [尾递归优化](nei-cun-guan-li/wei-di-gui-you-hua.md)
 
 ## 面向对象
 
