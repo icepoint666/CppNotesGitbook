@@ -10,6 +10,7 @@
 * [C++中的POD类型](yu-yan-xiang-guan/c++-zhong-de-pod-lei-xing.md)
 * [C++语法的复杂度](yu-yan-xiang-guan/c++-yu-fa-de-fu-za-du.md)
 * [C/C++关于ABI兼容的问题](yu-yan-xiang-guan/cc++-guan-yu-abi-jian-rong-de-wen-ti.md)
+* [C++序列化，protobuf](yu-yan-xiang-guan/c++-xu-lie-hua-protobuf.md)
 
 ## 运算符
 
@@ -20,6 +21,7 @@
 * [输出变量类型](shu-ju/c++-shu-chu-bian-liang-lei-xing.md)
 * [类型转换](shu-ju/lei-xing-zhuan-huan/README.md)
   * [C++中std::string转换为int类型](shu-ju/lei-xing-zhuan-huan/c++-zhong-stdstring-zhuan-huan-wei-int-lei-xing.md)
+  * [C++ double或者int转为string](shu-ju/lei-xing-zhuan-huan/c++-double-huo-zhe-int-zhuan-wei-string.md)
   * [C++中四种cast类型转换](shu-ju/lei-xing-zhuan-huan/c++-zhong-si-zhong-cast-lei-xing-zhuan-huan.md)
 
 ## 字符串
