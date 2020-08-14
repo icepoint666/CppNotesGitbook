@@ -28,7 +28,7 @@ POD类型相对非POD类型有以下优点：
 
 * 所有的拷贝构造函数都是trivial
 * 所有的移动构造函数都是trivial
-* 所有鹅赋值操作符都是trivial
+* 所有的赋值操作符都是trivial
 * 所有的移动赋值操作符都是trivial
 * 默认构造函数和析构函数是trivial
 
