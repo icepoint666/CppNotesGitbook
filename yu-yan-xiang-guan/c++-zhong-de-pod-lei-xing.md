@@ -10,17 +10,17 @@ POD的全称是Plain Old Data，Plain表明它是一个普通的类型，没有�
 
 POD类型在C++中有两个独立的特性：
 
-* 支持静态初始化（static initialization）
+* 支持静态初始化（static initialization）（静态初始化就是编译期算出变量的值，动态期什么都不做）
 * 拥有和C语言一样的内存布局（memory layout）
 
 这两个特性分布对应两个概念：trivial classes和standard-layout。现在提起POD类型通常是指有这两个特性的类，且这个类的非静态成员也是POD类型。
 
-### **POD优点**
+### **POD优点（满足POD类型的特性功能）**
 
 POD类型相对非POD类型有以下优点：  
-1、字节赋值。POD类型变量可以不使用构造函数、赋值操作符赋值，直接通过`memset()`、`memcpy()`初始化赋值。  
-2、兼容C内存布局。C++程序可以和C进行交互，或者可以和其他语言交互。  
-3、保证静态初始化安全有效。静态初始化很多时候可以提高程序性能，POD类型初始化更加简单。
+1、**字节赋值**。POD类型变量可以不使用构造函数、赋值操作符赋值，直接通过`memset()`、`memcpy()`初始化赋值。  
+2、**兼容C内存布局**。C++程序可以和C进行交互，或者可以和其他语言交互。  
+3、保证静态初始化安全有效。**静态初始化**很多时候可以**提高程序性能**，POD类型初始化更加简单。
 
 ### **Trivial classes**
 
@@ -49,7 +49,7 @@ C++11中可以使用`template <typename T>struct std::is_standard_layout`判断�
 
 ### **vector不能代替C数组的原因**
 
-vector不是POD
+**vector不是POD（不具有上述的优点）**
 
 ```cpp
 struct A {
@@ -67,7 +67,7 @@ int b;
 
 对于以上两个结构体，A用的是数组，对与A类型的变量，可以用memset将整个变量清零，可以用memcpy将内容进行完全拷贝。而B就行不行，因为它里面有一个vector。
 
-用POD来表达数据，无论嵌套多少层，最终的数据依然都是一块连续的内存，可以方便拷贝、清除，可以直接dump到硬盘上去，或是直接通过socket send到另一个进程。嵌套的struct例如：
+用POD来表达数据，无论嵌套多少层，最终的数据依然都是一块**连续的内存，可以方便拷贝、清除**，可以直接dump到硬盘上去，或是直接通过socket send到另一个进程。嵌套的struct例如：
 
 ```cpp
 struct C {
