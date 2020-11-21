@@ -33,7 +33,7 @@
 
 缺点：在第一次调用获取实例对象的静态接口时，才真正创建，如果在多线程操作情况下有可能被创建出多个实例对象（虽然可能性很低），存在线程不安全问题。
 
-### 五种实现
+### 六种实现（三种有问题，三种完整）
 
 设计模式之单例模式（C++版） - Zopen的文章 - 知乎 [https://zhuanlan.zhihu.com/p/62014096](https://zhuanlan.zhihu.com/p/62014096)
 
@@ -176,7 +176,38 @@ Singleton* Singleton::instance() {
 * 线程A进入了instance函数，并且执行了step1和step3，然后挂起。这时的状态是：\_instance不NULL，而\_instance指向的内存区没有对象！
 * 线程B进入了instance函数，发现\_instance不为null，就直接return \_instance了。
 
-### 实现四：**Meyers Singleton**（C++ 11版本最简洁的跨平台方案）（推荐版本）
+### 实现四：双检查锁实现+volatile（完整，推荐版本）
+
+```cpp
+#include <iostream>
+#include <mutex>
+using namespace std;
+std::mutex mt;
+class Singleton
+{
+private:
+    Singleton(){}
+public:
+    static Singleton* instance()
+    {
+        if(_instance == 0)
+        {
+            mt.lock();
+            if(_instance == 0)
+                volatile _instance = new Singleton();
+            mt.unlock();
+        }
+        return _instance;
+    }
+private:
+    static Singleton* _instance;
+public:
+    int atestvalue;
+};
+Singleton* Singleton::_instance = 0;
+```
+
+### 实现五：**Meyers Singleton**（C++ 11版本最简洁的跨平台方案）
 
 **局部静态变量**不仅只会初始化一次，而且还是线程安全的。
 
@@ -218,7 +249,7 @@ int main()
 2. C++11及以后的版本（如C++14）的多线程下，正确。
 3. C++11之前**不能**这么写。
 
-### 实现五（通过C++11提供的call\_once）
+### 实现六（通过C++11提供的call\_once）
 
 在C++11中提供一种方法，使得函数可以线程安全的只调用一次。即使用**std::call\_once**和**std::once\_flag**。实现代码如下：
 
