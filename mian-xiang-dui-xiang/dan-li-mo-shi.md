@@ -176,7 +176,7 @@ Singleton* Singleton::instance() {
 * 线程A进入了instance函数，并且执行了step1和step3，然后挂起。这时的状态是：\_instance不NULL，而\_instance指向的内存区没有对象！
 * 线程B进入了instance函数，发现\_instance不为null，就直接return \_instance了。
 
-### 实现四：双检查锁实现+volatile（个人实现，完整，推荐版本）
+### 实现四：双检查锁实现+volatile（个人实现，完整版本）
 
 可以根据自增的次数来测试：输出结果应该是理想的51000（50个子线程，1个主线程）
 
@@ -249,7 +249,7 @@ int main() {
 
 ```
 
-### 实现五：**Meyers Singleton**（C++ 11版本最简洁的跨平台方案）
+### 实现五：**Meyers Singleton**（C++ 11版本最简洁的跨平台方案，推荐）
 
 **局部静态变量**不仅只会初始化一次，而且还是线程安全的。
 
