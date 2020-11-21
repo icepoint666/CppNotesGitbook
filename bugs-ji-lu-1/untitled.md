@@ -2,6 +2,8 @@
 
 vector存放future变量，必须保证引用时
 
+参考：[https://stackoverflow.com/questions/36596398/vector-of-future-in-c11](https://stackoverflow.com/questions/36596398/vector-of-future-in-c11)
+
 示例：
 
 ```cpp
@@ -11,9 +13,15 @@ for (double i : {1,2,3,4,5,6,7,8,9})
     VF.push_back(async(K,i));
 ```
 
-It worked successfully but when I tried to retrieve the values via a for\_each call I obtained a compilation error that I do not understand.
+**错误方式：会报错**
 
-```text
+```cpp
  for_each(VF.begin(), VF.end(), [](future<double> x){cout << x.get() << " "; });
 ```
+
+**正确方式：加引用**
+
+
+
+
 

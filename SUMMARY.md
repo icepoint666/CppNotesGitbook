@@ -112,5 +112,6 @@
 
 * [volatile shared\_ptr 不能与 nullptr进行比较](bugs-ji-lu-1/volatile-sharedptr-bu-neng-yu-nullptr-jin-hang-bi-jiao.md)
 * [vector中存储future变量](bugs-ji-lu-1/untitled.md)
+* [volatile T类型返回时不等于T&](bugs-ji-lu-1/volatiletlei-xing-fan-hui-shi-bu-deng-yu-t.md)
 * [static静态函数中用到的static静态变量声明](bugs-ji-lu-1/static-jing-tai-han-shu-zhong-yong-dao-de-static-jing-tai-bian-liang-sheng-ming.md)
 

@@ -176,35 +176,77 @@ Singleton* Singleton::instance() {
 * 线程A进入了instance函数，并且执行了step1和step3，然后挂起。这时的状态是：\_instance不NULL，而\_instance指向的内存区没有对象！
 * 线程B进入了instance函数，发现\_instance不为null，就直接return \_instance了。
 
-### 实现四：双检查锁实现+volatile（完整，推荐版本）
+### 实现四：双检查锁实现+volatile（个人实现，完整，推荐版本）
+
+可以根据自增的次数来测试：输出结果应该是理想的51000
+
+* 如果不加自增的锁的话，可能会输出50611，50783，...等
+* 如果不加instance new的锁的话，可能会输出50000，也就是出现一个线程违反了单例模式，不过很难触发这个
 
 ```cpp
 #include <iostream>
 #include <mutex>
+#include <vector>
+#include <thread>
+#include <future>
 using namespace std;
-std::mutex mt;
-class Singleton
-{
-private:
-    Singleton(){}
+class A{
 public:
-    volatile static Singleton* instance()
-    {
-        if(_instance == 0)
-        {
-            mt.lock();
-            if(_instance == 0)
-                _instance = new Singleton();
-            mt.unlock();
+    volatile int x;
+    std::mutex mx;
+    A():x(0){}
+    A(int xx, double yy):x(xx){}
+    void inc(){
+        for(int i = 0; i < 1000; i++){
+            std::unique_lock<std::mutex> lock(mx); //自增的锁
+            x++;
+            lock.unlock();
         }
-        return _instance;
     }
-private:
-    static Singleton* _instance;
-public:
-    int atestvalue;
 };
-Singleton* Singleton::_instance = 0;
+
+template <typename T>
+class Singleton {
+ public:
+  static T& Instance();
+  Singleton(const Singleton&) = delete;
+  Singleton& operator=(const Singleton&) = delete;
+
+ private:
+  Singleton() = default;
+  ~Singleton() = default;
+};
+
+template <typename T>
+T& Singleton<T>::Instance() {
+    static T* instance;
+    static std::mutex m;
+    if(!instance){
+        std::lock_guard<std::mutex> lock(m); //单例模式的锁
+        if(!instance){
+            instance = new T();
+        }
+    }
+    instance->inc();
+    return *instance;
+}
+
+void f(){
+    volatile auto& a = Singleton<A>::Instance();
+}
+
+int main() {
+    std::vector<std::thread> v;
+    for (int i = 1; i <= 50; ++i) {
+        v.emplace_back(f);
+    }
+    volatile auto& a = Singleton<A>::Instance();
+    for (auto& t : v) {
+        t.join();
+    }
+    cout << a.x << endl;
+}
+
 ```
 
 ### 实现五：**Meyers Singleton**（C++ 11版本最简洁的跨平台方案）
