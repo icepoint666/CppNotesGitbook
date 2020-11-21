@@ -69,7 +69,6 @@
 ## STL
 
 * [find，remove，erase](stl/untitled.md)
-* [STL六大组件](stl/stl-liu-da-zu-jian.md)
 
 ## 高效编程tricks
 
@@ -108,4 +107,9 @@
 * [基础问题相关](mian-shi-wen-ti/ji-chu-wen-ti-xiang-guan.md)
 * [面向对象相关](mian-shi-wen-ti/mian-xiang-dui-xiang-xiang-guan.md)
 * [高阶问题相关](mian-shi-wen-ti/gao-jie-wen-ti-xiang-guan.md)
+
+## bugs记录 <a id="bugs-ji-lu-1"></a>
+
+* [volatile shared\_ptr 不能与 nullptr进行比较](bugs-ji-lu-1/volatile-sharedptr-bu-neng-yu-nullptr-jin-hang-bi-jiao.md)
+* [Untitled](bugs-ji-lu-1/untitled.md)
 

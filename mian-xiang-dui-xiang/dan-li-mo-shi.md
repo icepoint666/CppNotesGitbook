@@ -188,13 +188,13 @@ class Singleton
 private:
     Singleton(){}
 public:
-    static Singleton* instance()
+    volatile static Singleton* instance()
     {
         if(_instance == 0)
         {
             mt.lock();
             if(_instance == 0)
-                volatile _instance = new Singleton();
+                _instance = new Singleton();
             mt.unlock();
         }
         return _instance;
