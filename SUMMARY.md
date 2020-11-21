@@ -78,6 +78,7 @@
 * [More Effective C++](gao-xiao-bian-cheng-tricks/more-effective-c++.md)
 * [Google C++ Style Guide](gao-xiao-bian-cheng-tricks/google-c++-style-guide.md)
 * [现代C++](gao-xiao-bian-cheng-tricks/xian-dai-c++.md)
+* [代码整洁之道（Java示例）](gao-xiao-bian-cheng-tricks/dai-ma-zheng-jie-zhi-dao-java-shi-li.md)
 
 ## 不常用知识
 
