@@ -225,8 +225,6 @@ const Rational& operator* (const Rational& lhs, const Rational& rhs){
 
 ### **23. 尽量用non-member非成员函数替换成员函数，从而保证封装性**
 
-### **25.swap函数**
-
 ### **26.尽量延后变量定义的时间**
 
 **“尽快延后的”真正意义：尝试延后这个定义，直到能给它初始实参为止**
@@ -272,7 +270,7 @@ for(int i = 0; i < n; ++i){
 
 不异常安全代码示例：
 
-![](../.gitbook/assets/wu-biao-ti-%20%287%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%289%29.png)
 
 **异常安全**是指
 
@@ -323,11 +321,35 @@ void PrettyMenu::changeBackground(std::istream& imgSrc){
 * 构造函数与析构函数，往往对于Inlining是比较糟糕的候选：因为有继承可能发生
 * 如果有函数指针inlining也不太行
 
-### 31. 编译依存性应该最小化
+### 31. 将文件间的编译依存关系降至最低
+
+假设对C++某个程序**某个class实现了轻微的修改**，修改的不是接口而是实现
+
+然后**重建了这个程序，make**
+
+**结果需要把整个程序重新编译和链接一下**，**过于麻烦**
+
+**问题：C++并没有把“将接口从实现中分离”这事做的很好**
+
+\*\*\*\*
+
+**编译依存问题：**
+
+如果**头文件中有任何一个被改变**，或这些头**文件所依赖的其他头文件有任何改变**，那么**每一个含有这个类文件就得重新编译**，任何使用这个类的文件也得重新编译，这样**连串编译依存关系**，就是编译依存的问题
 
 
 
-程序库头文件应该以**“完全且仅有声明式“**的形式存在
+**将编译依存最小化的方法：**
+
+“接口与实现分离”，关键在于以**“声明的依存性“**替换**“定义的依存性”**
+
+让头文件尽可能自我满足，万一做不到则让它与其他文件的**声明式相依**
+
+![](../.gitbook/assets/wu-biao-ti-%20%285%29.png)
+
+![](../.gitbook/assets/wu-biao-ti-%20%282%29.png)
+
+* 程序库头文件应该以**“完全且仅有声明式“**的形式存在
 
 ### 32. public继承意味着is-a关系
 
@@ -387,7 +409,7 @@ public:
 
 ### 35.虚函数/非虚函数接口实现 模板方法模式与策略模式
 
-![](../.gitbook/assets/wu-biao-ti-%20%283%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%284%29.png)
 
 ### 36.绝不重新定义 继承而来的non-virtual函数
 
@@ -406,7 +428,7 @@ virtual void draw(ShapeColor color = Blue) const;
 
 **复合composition**
 
-![](../.gitbook/assets/wu-biao-ti-%20%289%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%2811%29.png)
 
 * 在应用域，意味着“has-a”关系
   * 例如人，汽车，一张张视频画面
@@ -440,7 +462,7 @@ private继承并不意味着"is-a"关系
 
 ### **41.classes面向对象编程是运行时动态，templates模板编程是编译器多态**
 
-![](../.gitbook/assets/wu-biao-ti-%20%286%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%288%29.png)
 
 ### **42.typename两个用途**
 
@@ -448,7 +470,7 @@ private继承并不意味着"is-a"关系
 
 用途2：声明在类型前用来验证**嵌套从属类型名称**
 
-![](../.gitbook/assets/wu-biao-ti-%20%284%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%286%29.png)
 
 * 上述的C并不是嵌套从属类型名称，所以声明container时并不需要以typename为前导
 * C::iterator是个嵌套从属类型，所以必须以typename作为前导
@@ -457,13 +479,13 @@ private继承并不意味着"is-a"关系
 
 ### 49. std::set\_new\_handler：如果new失败了，设置new的异常处理
 
-![](../.gitbook/assets/wu-biao-ti-%20%285%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%287%29.png)
 
-![](../.gitbook/assets/wu-biao-ti-%20%288%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%2810%29.png)
 
 ### 51. 定制operator new/operator delete的规则
 
-![](../.gitbook/assets/wu-biao-ti-%20%282%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%283%29.png)
 
 ### 52.写了placement new也要写placement delete
 
