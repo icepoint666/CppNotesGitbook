@@ -122,3 +122,64 @@ Widget & Widget::operator=(const Widget& rhs){
 }
 ```
 
+### 13. RAII思想：资源取得时机便是初始化时机
+
+这一点主要是在std::lock\_guard上体现了这点
+
+* 拿到锁的时候就是初始化管理对象的时候
+* 析构的时候就是释放锁的时候
+
+### 14. RAII对象可能要 禁止复制 or 对底层资源采用“引用计数法”
+
+* **禁止复制**：因为管理的资源是唯一的，例如锁，可以通过禁止复制的方法来管理
+  * 这时候需要采用条款6的方法
+* **对底层资源采用“引用计数法”**：有时候希望保有资源，直到最后一个使用者被销毁的时候才释放
+  * 通过shared\_ptr来实现
+
+### 16.使用相同行为的new和delete
+
+错误示例：创建的是数组，但是只删除了一个对象（需要注意，**易错**）
+
+```cpp
+std::string* stringArray = new std::string[100]; 
+...
+delete stringArray;
+```
+
+正确示例：\(数组与数组对应）
+
+```cpp
+std::string* stringPtr1 = new std::string; //对应的应该是对象删除
+std::string* stringPtr2 = new std::string[100]; //对应的应该是对象数组地删除
+...
+delete stringPtr1;                         //删除对象
+delete [] stringPtr2;                      //删除一个对象的数组
+```
+
+### 20. 传引用替代传值
+
+* **效率很高，减少拷贝构造开销**
+* **可以避免切割问题**
+
+### **21.该返回对象的时候，就不要返回reference**
+
+不要以为返回reference可以提升性能
+
+**糟糕的示例1：**
+
+```cpp
+const Rational& operator* (const Rational& lhs, const Rational& rhs){
+    Rational result(lhs.n * rhs.n, lhs.d * rhs.d);
+    return result;
+}
+```
+
+**糟糕的示例2：**
+
+```cpp
+const Rational& operator* (const Rational& lhs, const Rational& rhs){
+    Rational* result = new Rational(lhs.n * rhs.n, lhs.d * rhs.d);
+    return *result;
+}
+```
+
