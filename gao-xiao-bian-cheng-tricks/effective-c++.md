@@ -413,3 +413,18 @@ virtual void draw(ShapeColor color = Blue) const;
 * 在实现域，意味着“is-implemented-in-terms-of 根据某物实现出”关系
   * 例如缓冲区的实现，互斥锁，查找树等的实现
 
+### 39.谨慎的使用private继承
+
+private继承并不意味着"is-a"关系
+
+**private继承特性：**
+
+如果classes的继承关系是private
+
+* **编译器不会自动将一个derived class对象转换为一个base class对象**
+* **由private base class继承而来的所有成员，在derived class中都会变成private属性**
+
+### 40.谨慎的使用多重继承
+
+* 多重继承比单一继承复杂
+
