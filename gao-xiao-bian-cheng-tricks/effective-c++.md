@@ -164,10 +164,28 @@ delete [] stringPtr2;                      //删除一个对象的数组
 
 ```cpp
 //调用函数时，进行智能指针的构造
-processWidget(std::shared_ptr)
+processWidget(std::shared_ptr<Widget>(new Widget), priority());
 ```
 
+编译器创建代码，要做一下三件事
 
+* 调用priority\(\)
+* 执行new Widget
+* 调用std::shared\_ptr构造函数
+
+C++编译器的执行次序弹性很大，不像Java与C\#都是以特定顺序执行这些操作
+
+由于依赖关系执行new Widget一定是在调用std::shared\_ptr构造函数之前
+
+但是priority随时都有可能，所以可能会导致**第一顺位执行new Widget，第二顺位执行priority\(\)，第三顺位调用std::shared\_ptr构造函数**
+
+问题在于如果调用priority\(）触发异常，程序中止，那么返回new Widget的指针将会遗失，所以也就造成了**内存泄漏**
+
+**正确做法**
+
+```cpp
+std::shared_ptr<Widgey>
+```
 
 ### 20. 传引用替代传值
 
