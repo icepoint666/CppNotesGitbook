@@ -105,9 +105,20 @@ DBConn::~DBConn(){
 
 原因：因为这类调用从不下降至derived class，也就是不会有多态的行为
 
-### 10.编写operator=的时候，要注意返回reference给自己\(\*this\)
+### 10.编写operator=的时候，注意事项
 
-### 11.编写operator=的时候，要注意处理“自己给自己赋值”的特殊情况
+**①要注意，返回reference给自己\(\*this\)**
 
-自我赋值安全
+**②要注意，处理“自己给自己赋值”的特殊情况，自我赋值安全**
+
+**解决样例：**
+
+```cpp
+Widget & Widget::operator=(const Widget& rhs){
+    if(this == &rhs)return *this; //11
+    delete pb;
+    pb = new Bitmap(*rhs.pb);
+    return *this; //10
+}
+```
 
