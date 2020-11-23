@@ -409,5 +409,7 @@ virtual void draw(ShapeColor color = Blue) const;
 ![](../.gitbook/assets/wu-biao-ti-%20%282%29.png)
 
 * 在应用域，意味着“has-a”关系
+  * 例如人，汽车，一张张视频画面
 * 在实现域，意味着“is-implemented-in-terms-of 根据某物实现出”关系
+  * 例如缓冲区的实现，互斥锁，查找树等的实现
 
