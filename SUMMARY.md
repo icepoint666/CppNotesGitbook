@@ -72,7 +72,7 @@
 
 ## 高效编程tricks
 
-* [Effective C++](gao-xiao-bian-cheng-tricks/effective-c++.md)
+* [Effective C++（浓缩部分）](gao-xiao-bian-cheng-tricks/effective-c++.md)
 * [More Effective C++](gao-xiao-bian-cheng-tricks/more-effective-c++.md)
 * [Morden Effective C++](gao-xiao-bian-cheng-tricks/xian-dai-c++.md)
 * [Google编程格式规范](gao-xiao-bian-cheng-tricks/google-bian-cheng-ge-shi-gui-fan.md)
