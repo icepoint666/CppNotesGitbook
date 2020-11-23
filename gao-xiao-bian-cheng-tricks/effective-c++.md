@@ -184,7 +184,8 @@ C++编译器的执行次序弹性很大，不像Java与C\#都是以特定顺序�
 **正确做法**
 
 ```cpp
-std::shared_ptr<Wid
+std::shared_ptr<Widget>pw(new Widget);
+processWidget(pw, priority);
 ```
 
 ### 20. 传引用替代传值
