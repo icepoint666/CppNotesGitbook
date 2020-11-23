@@ -223,3 +223,28 @@ const Rational& operator* (const Rational& lhs, const Rational& rhs){
 
 **存在的问题：就是谁该对这个被new出来的对象delete，如果将来没有人去delete，就内存泄漏了**
 
+### **23. 尽量用non-member非成员函数替换成员函数，从而保证封装性**
+
+### **25.swap函数**
+
+### **26.尽量延后变量定义的时间**
+
+**“尽快延后的”真正意义：尝试延后这个定义，直到能给它初始实参为止**
+
+**示例：vector的定义，先预留，尽量不要用resize或者其他初始化的方法**
+
+```cpp
+vector<int>a;
+a.reverse(100);
+...
+//使用
+```
+
+下面两种构造模式，尽量采用方法A，而不是方法B
+
+```cpp
+//方法A
+Widget w;
+for(int i = 0
+```
+
