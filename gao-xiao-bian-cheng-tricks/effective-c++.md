@@ -174,6 +174,10 @@ const Rational& operator* (const Rational& lhs, const Rational& rhs){
 }
 ```
 
+**依然要付出一个构造函数的代价**
+
+**返回一个reference指向一个local对象**，在函数退出销毁时，返回的引用指向的一个被销毁的对象，就是一个未被定义的行为
+
 **糟糕的示例2：**
 
 ```cpp
@@ -182,4 +186,8 @@ const Rational& operator* (const Rational& lhs, const Rational& rhs){
     return *result;
 }
 ```
+
+**依然要付出一个构造函数的代价**
+
+**存在的问题：就是谁该对这个被new出来的对象delete，如果将来没有人去delete，就内存泄漏了**
 
