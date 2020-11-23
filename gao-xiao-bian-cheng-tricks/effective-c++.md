@@ -272,7 +272,7 @@ for(int i = 0; i < n; ++i){
 
 不异常安全代码示例：
 
-![](../.gitbook/assets/wu-biao-ti-.png)
+![](../.gitbook/assets/wu-biao-ti-%20%281%29.png)
 
 **异常安全**是指
 
@@ -338,7 +338,7 @@ class Person{ ... };
 class Student: public Person{ ... };
 ```
 
-classes之间的三种关系：
+classes之间的**三种关系**：
 
 * is-a 是一个
 * has-a 有一个
@@ -384,4 +384,30 @@ public:
     ...
 }
 ```
+
+### 35.虚函数/非虚函数接口实现 模板方法模式与策略模式
+
+![](../.gitbook/assets/wu-biao-ti-.png)
+
+### 36.绝不重新定义 继承而来的non-virtual函数
+
+### 37.绝不重新定义 继承而来的缺省参数值
+
+缺省参数值：
+
+```cpp
+原本类中的函数：
+virtual void draw(ShapeColor color) const = 0;
+继承函数时重新定义了参数缺省值（不允许）：
+virtual void draw(ShapeColor color = Blue) const;
+```
+
+### 38.复合意味着“has-a”关系 或 “is-implemented-in-terms-of 根据某物实现出”关系
+
+**复合composition**
+
+![](../.gitbook/assets/wu-biao-ti-%20%282%29.png)
+
+* 在应用域，意味着“has-a”关系
+* 在实现域，意味着“is-implemented-in-terms-of 根据某物实现出”关系
 
