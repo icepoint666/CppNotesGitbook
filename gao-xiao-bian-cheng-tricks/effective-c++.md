@@ -313,3 +313,65 @@ void PrettyMenu::changeBackground(std::istream& imgSrc){
 
 承诺绝对不抛出异常
 
+### 30. inline只是一个编译器申请，不是强制命令
+
+**inline函数**一般必须**被置于头文件中**，因为大部分都是在编译过程中进行inlining
+
+将函数调用，替换成函数代码
+
+* 大部分编译器对于带有循环或者递归的函数，一般会拒绝inline
+* 构造函数与析构函数，往往对于Inlining是比较糟糕的候选：因为有继承可能发生
+* 如果有函数指针inlining也不太行
+
+### 31. 编译依存性应该最小化
+
+
+
+程序库头文件应该以**“完全且仅有声明式“**的形式存在
+
+### 32. public继承意味着is-a关系
+
+Student is a Person:
+
+```cpp
+class Person{ ... };
+class Student: public Person{ ... };
+```
+
+classes之间的三种关系：
+
+* is-a 是一个
+* has-a 有一个
+* is-implemented-in-terms-of 根据某物实现出
+
+### 34. 区分接口继承 和 实现继承（实现3种继承行为）
+
+public继承分为2种继承，其中包含3种期望的行为
+
+* **函数接口继承**：①只继承成员函数的接口（也就是声明），必须要override自己的实现
+* **函数实现继承**：
+  * ②同时继承函数的接口和实现，有时候希望会**override**它们所继承的实现
+  * ③同时继承函数的接口和实现，只允许遵循原本的实现，不允许override任何东西
+
+**行为①：**有时候只希望derived class继承函数接口，但是让derived class他们自己去实现
+
+**声明一个纯虚函数pure virtual的目的就是为了让derived classes只继承函数接口**
+
+```cpp
+class Shape{
+public:
+    virtual void draw() const = 0;
+    ...
+};
+```
+
+**行为②：声明一个非纯虚函数impure virtual**
+
+```cpp
+class Shape{
+public:
+    virtual void error(const std::string& msg);
+    ...
+};
+```
+
