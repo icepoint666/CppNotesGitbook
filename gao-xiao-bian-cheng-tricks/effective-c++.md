@@ -375,3 +375,13 @@ public:
 };
 ```
 
+**行为③：声明一个非虚函数non-virtual**
+
+```cpp
+class Shape{
+public:
+    int ObjectID() const;
+    ...
+}
+```
+
