@@ -294,6 +294,8 @@ for(int i = 0; i < n; ++i){
 
 **copy-and-swap策略：保证强烈异常**
 
+**按照下面这种方式：①RAII的锁②share\_ptr.reset③++放在执行操作后**
+
 ```cpp
 class PrettyMenu{
     ...
