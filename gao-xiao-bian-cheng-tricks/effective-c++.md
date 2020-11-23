@@ -272,7 +272,7 @@ for(int i = 0; i < n; ++i){
 
 不异常安全代码示例：
 
-![](../.gitbook/assets/wu-biao-ti-%20%281%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%287%29.png)
 
 **异常安全**是指
 
@@ -387,7 +387,7 @@ public:
 
 ### 35.虚函数/非虚函数接口实现 模板方法模式与策略模式
 
-![](../.gitbook/assets/wu-biao-ti-.png)
+![](../.gitbook/assets/wu-biao-ti-%20%283%29.png)
 
 ### 36.绝不重新定义 继承而来的non-virtual函数
 
@@ -406,7 +406,7 @@ virtual void draw(ShapeColor color = Blue) const;
 
 **复合composition**
 
-![](../.gitbook/assets/wu-biao-ti-%20%282%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%289%29.png)
 
 * 在应用域，意味着“has-a”关系
   * 例如人，汽车，一张张视频画面
@@ -426,5 +426,75 @@ private继承并不意味着"is-a"关系
 
 ### 40.谨慎的使用多重继承
 
-* 多重继承比单一继承复杂
+多重继承比单一继承复杂，会涉及**虚继承**
+
+![](../.gitbook/assets/wu-biao-ti-.png)
+
+**虚继承会增加大小，速度，初始化复杂度等各种成本**
+
+* 所以**如果virtual base classes不带有任何数据**，那么**就不会触发虚继承，实现效率就比较高**
+
+**所以建议多重继承interface classes（也就是虚类）**
+
+![](../.gitbook/assets/wu-biao-ti-%20%281%29.png)
+
+### **41.classes面向对象编程是运行时动态，templates模板编程是编译器多态**
+
+![](../.gitbook/assets/wu-biao-ti-%20%286%29.png)
+
+### **42.typename两个用途**
+
+**用途1：与class互换template&lt;typename T&gt;**
+
+用途2：声明在类型前用来验证**嵌套从属类型名称**
+
+![](../.gitbook/assets/wu-biao-ti-%20%284%29.png)
+
+* 上述的C并不是嵌套从属类型名称，所以声明container时并不需要以typename为前导
+* C::iterator是个嵌套从属类型，所以必须以typename作为前导
+
+### 43-48.泛型编程相关
+
+### 49. std::set\_new\_handler：如果new失败了，设置new的异常处理
+
+![](../.gitbook/assets/wu-biao-ti-%20%285%29.png)
+
+![](../.gitbook/assets/wu-biao-ti-%20%288%29.png)
+
+### 51. 定制operator new/operator delete的规则
+
+![](../.gitbook/assets/wu-biao-ti-%20%282%29.png)
+
+### 52.写了placement new也要写placement delete
+
+**Placement new的含义**
+
+placement new 是重载operator new 的一个标准、全局的版本，它不能够被自定义的版本代替（不像普通版本的operator new和operator delete能够被替换）。
+
+void \*operator new\( size\_t, void \* p \) throw\(\) { return p; }
+
+placement new的执行忽略了size\_t参数，只返还第二个参数。其结果是允许用户把一个对象放到一个特定的地方，达到调用构造函数的效果。和其他普通的new不同的是，它在括号里多了另外一个参数。比如：
+
+Widget \* p = new Widget;                    //ordinary new
+
+pi = new \(ptr\) int; pi = new \(ptr\) int;     //placement new
+
+括号里的参数ptr是一个指针，它指向一个内存缓冲器，placement new将在这个缓冲器上分配一个对象。Placement new的返回值是这个被构造对象的地址\(比如括号中的传递参数\)。placement new主要适用于：在对时间要求非常高的应用程序中，因为这些程序分配的时间是确定的；长时间运行而不被打断的程序；以及执行一个垃圾收集器 \(garbage collector\)。
+
+**new 、operator new 和 placement new 区别**
+
+（1）new ：不能被重载，其行为总是一致的。它先调用operator new分配内存，然后调用构造函数初始化那段内存。
+
+new 操作符的执行过程：  
+1. 调用operator new分配内存 ；  
+2. 调用构造函数生成类对象；  
+3. 返回相应指针。
+
+（2）operator new：要实现不同的内存分配行为，应该重载operator new，而不是new。
+
+operator new就像operator + 一样，是可以重载的。如果类中没有重载operator new，那么调用的就是全局的::operator new来完成堆的分配。同理，operator new\[\]、operator delete、operator delete\[\]也是可以重载的。
+
+（3）placement new：只是operator new重载的一个版本。它并不分配内存，只是返回指向已经分配好的某段内存的一个指针。因此不能删除它，但需要调用对象的析构函数。
+
+如果你想在已经分配的内存中创建一个对象，使用new时行不通的。也就是说placement new允许你在一个已经分配好的内存中（栈或者堆中）构造一个新的对象。原型中void\* p实际上就是指向一个已经分配好的内存缓冲区的的首地址。
 
