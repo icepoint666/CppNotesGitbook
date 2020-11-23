@@ -240,11 +240,74 @@ a.reverse(100);
 //使用
 ```
 
-下面两种构造模式，尽量采用方法A，而不是方法B
+下面两种构造模式，尽量采用方法A，而不是方法B（赋值成本比构造+析构要低）
 
 ```cpp
-//方法A
+//方法A: 1个构造函数 + 1个析构函数 + n个赋值操作
 Widget w;
-for(int i = 0
+for(int i = 0; i < n; ++i){
+    w = f(i);
+}
+//方法B：n个构造函数 + n个析构函数
+for(int i = 0; i < n; ++i){
+    Widget w(f(i));
+}
 ```
+
+### 27.尽量少做转型动作
+
+**转型动作：**
+
+旧式：`(T)expression`、`T(expression)`；新式：`const_cast<T>(expression)`、`dynamic_cast<T>(expression)`、`reinterpret_cast<T>(expression)`、`static_cast<T>(expression)`；
+
+* 尽量避免转型、注重效率避免 dynamic\_casts、尽量设计成无需转型
+* 如果某个转型是必要的，试着将它隐藏在某个函数背后（把转型封装成函数），客户随时可以调用这个函数，而无需将转型放进他们自己的代码中
+* 宁可用C++Style新式转型，不要使用旧式转型（因为新式转型有分类，比较容易知道这个是在干嘛）
+
+### 28.尽量不要令public成员函数返回一个protected,private成员函数的指针（handle）
+
+并不是一定不能返回，只是这样常常会导致客户可以修改内部成员，这往往是不希望发生的
+
+### 29. 保证异常安全
+
+不异常安全代码示例：
+
+![](../.gitbook/assets/wu-biao-ti-.png)
+
+**异常安全**是指
+
+* 不泄漏任何资源
+  * 上述代码，一旦new Image导致异常，unlock调用就不会执行了，永远锁住了
+* 不允许数据败坏
+  * 上述new Image抛出异常的话，本质上没有创建新对象，但是imageChanges已经++了
+
+保证异常安全的方式：有三种
+
+**①基本保证**
+
+**②强烈保证：**
+
+**异常抛出保证程序状态不改变**
+
+* 如果函数成功：就是完全成功
+* 如果函数失败：程序会回复到之前的状态
+
+**copy-and-swap策略：保证强烈异常**
+
+```cpp
+class PrettyMenu{
+    ...
+    std::shared_ptr<Image>bgImage;
+    ...
+}
+void PrettyMenu::changeBackground(std::istream& imgSrc){
+    lock ml(&mutex); //使用RAII的lock_guard来保证退出函数就会释放锁
+    bgImage.reset(new Image(imgSrc)); //shared_ptr.reset函数只有在里面的new执行成功才会被调用
+    ++imageChanges; //放在之后设置
+}
+```
+
+**③不抛异常：**
+
+承诺绝对不抛出异常
 
