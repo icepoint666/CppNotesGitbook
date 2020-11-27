@@ -96,6 +96,7 @@
 ## 项目阅读笔记 <a id="xiang-mu-yue-du-bi-ji-1"></a>
 
 * [C++项目流程](xiang-mu-yue-du-bi-ji-1/c++-xiang-mu-liu-cheng/README.md)
+  * [配置Clion + Cmake + gdb编译开发环境](xiang-mu-yue-du-bi-ji-1/c++-xiang-mu-liu-cheng/pei-zhi-clion-+-cmake-+-gdb-bian-yi-kai-fa-huan-jing.md)
   * [单元测试，gtest](xiang-mu-yue-du-bi-ji-1/c++-xiang-mu-liu-cheng/dan-yuan-ce-shi-gtest.md)
 * [定位内存泄漏](xiang-mu-yue-du-bi-ji-1/ding-wei-nei-cun-xie-lou.md)
 * [泛型编程](xiang-mu-yue-du-bi-ji-1/fan-xing-bian-cheng/README.md)

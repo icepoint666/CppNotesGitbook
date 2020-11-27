@@ -62,7 +62,7 @@ Actress a;
 desc(&a);
 ```
 
-普通C++的类：
+**普通C++的类：核心优势是成员函数zero overhead的实现，**第一个参数是self，所以成员函数指针没有存放在类实例化对象里面
 
 ```cpp
 class Actress{
