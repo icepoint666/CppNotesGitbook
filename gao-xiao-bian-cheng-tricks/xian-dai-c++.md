@@ -1,2 +1,2 @@
-# Morden Effective C++
+# Modern Effective C++
 
