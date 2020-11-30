@@ -1,5 +1,7 @@
 # More Effective C++
 
+## 基础
+
 ### 1.仔细区别指针（pointer）和引用（reference）
 
 * 指针可以指向 null，引用不允许指向 null。
@@ -121,7 +123,100 @@ void* operator new(size_t, void* location) {
 delete 会先调用析构函数，再执行 operator delete 释放内存。  
 delete\[\] 会为数组中的每个元素调用析构函数，再执行 operator delete\[\] 释放内存。
 
-### 异常
+## 异常
+
+### 9.坚持一个原则，将资源封装在对象内（RAII的思想）
+
+这样即使发生异常，局部对象在自动销毁的时候也可以调用其析构函数释放资源，避免泄漏
+
+### 10.需要在 constructor 内阻止资源泄漏
+
+**注意：** C++ 只会析构 **已构造完成** 的对象。也就是说在构造函数中发生异常的话，析构函数是不会执行的。
+
+**9，10里的思想改进对比**
+
+**原本**
+
+```cpp
+void processAdoptions(istream& dataSource) 
+{ 
+    while (dataSource) { // 还有数据时,继续循环 
+        ALA *pa = readALA(dataSource); //得到下一个动物 
+        pa->processAdoption(); //处理收容动物 
+        delete pa; //删除 readALA 返回的对象 
+    } 
+}
+```
+
+**异常安全**
+
+```cpp
+void processAdoptions(istream& dataSource) 
+{ 
+     while (dataSource) { 
+         ALA *pa = readALA(dataSource); 
+         try { 
+             pa->processAdoption(); 
+         } 
+         catch (...) { // 捕获所有异常 
+            delete pa; // 避免内存泄漏 
+            // 当异常抛出时 
+            throw; // 传送异常给调用者 
+         } 
+         delete pa; // 避免资源泄漏 
+     } // 当没有异常抛出时 
+}
+```
+
+构造资源时用**auto\_ptr**代替**new指针**
+
+```cpp
+template<class T> 
+class auto_ptr { 
+public: 
+    auto_ptr(T *p = 0): ptr(p) {} // 保存 ptr，指向对象 
+    ~auto_ptr() { delete ptr; } // 删除 ptr 指向的对象 
+private: 
+    T *ptr; // raw ptr to object 
+};
+```
+
+```cpp
+void processAdoptions(istream& dataSource) 
+{ 
+    while (dataSource) { 
+        auto_ptr<ALA> pa(readALA(dataSource)); 
+        pa->processAdoption(); 
+    } 
+}
+```
+
+C++11后普遍用**unique\_ptr代替auto\_ptr（因为auto\_ptr允许copy，就会存在问题,unique\_ptr禁用了copy，主要通过move来完成）**
+
+### 11. 禁止异常流出 destructor 之外
+
+有两个好处：
+
+* 第一是它可以避免 terminate 函数在异常传播过程的栈展开机制中被调用，你的程序将被立即结束。
+* 第二是它可以协助确保 destructor 完成其应该完成的所有事情。
+
+#### 12. 了解 “抛出一个异常” 与 “传递一个参数” 或 “调用一个虚函数” 之间的差异
+
+“抛出一个异常”，异常对象总是会被复制一次，如果以 by value 方式捕捉，则会发生两次复制。
+
+“传递一个参数”，如果是 by reference 方式则不会发生复制，如果是 by value 方式则发生复制。（简单的说就是抛出异常会比传递参数多发生一次复制）
+
+抛出的异常不会发生隐式转型（即 int 类型不会默默转为 double 类型而被捕获）。只有两种转换可以发生，一种是继承关系中的向上转型，另一种是 “有型指针” 转为 “无型指针”。`const void*` 指针可捕捉任何指针类型的异常。
+
+异常的捕捉遵循 “最先吻合” 策略，即找到第一个匹配者执行。调用虚函数则是 “最佳吻合” 策略，即执行的是与对象类型最吻合的函数。
+
+## 效率
+
+## 技术
+
+### 34. 如何在同一个程序中结合 C 和 C++
+
+
 
 
 
