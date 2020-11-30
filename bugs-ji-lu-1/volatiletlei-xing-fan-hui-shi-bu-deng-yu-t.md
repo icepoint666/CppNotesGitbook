@@ -17,5 +17,7 @@ T& Singleton<T>::Instance() {
 }
 ```
 
+**解决**：**通过const cast可以去掉volatile修饰**
+
 
 
