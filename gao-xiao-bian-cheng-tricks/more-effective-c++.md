@@ -1,6 +1,6 @@
 # More Effective C++
 
-### 1. 仔细区别指针（pointer）和引用（reference）
+### 1.仔细区别指针（pointer）和引用（reference）
 
 * 指针可以指向 null，引用不允许指向 null。
 * 指针可以重新被赋值，引用则不行，它总是指向最初获得的那个对象，所以引用初始化时必须有初值。
@@ -14,7 +14,7 @@
 * `dynamic_cast` 用来执行继承体系中 “安全的向下转型或跨系转型动作”。
 * `reinterpret_cast` 用来将一种类型重新解释为另一种类型，而不关心它们是否相关。
 
-### 3. 不要对数组使用多态
+### 3.不要对数组使用多态
 
 **示例：**
 
@@ -87,6 +87,8 @@ const Date operator ++ (int) {
 
 ### **8.区分new, operator new，placement new，new\[\]**
 
+**`new = operator new + placement new`**
+
 **new operator：**
 
 如果希望对象产生于 heap，请使用 **new operator**。它**不但分配内存**还会**调用一个构造函数**进行初始化。
@@ -97,20 +99,29 @@ string *p = new string("Hello");
 
 **operator new**
 
-如果只是打算分配内存，请使用 **operator new**。它不会调用任何构造函数，你也可以写一个自己的 operator new。
+如果**只打算分配内存**，请使用 **operator new**。它不会调用任何构造函数，你也可以写一个自己的 operator new。
 
-`void *p = operator new(sizeof(string));`
-
-如果你打算在指定的内存位置构造对象（需要先分配），请使用 placement new。这常用于 shared memory 或 memory-mapped I/O。
-
-```text
-#include <new>
-void * operator new(size_t, void *location) {
-    return location;
-}
-1234
+```cpp
+void *p = operator new(sizeof(string));
 ```
 
-`delete` 会先调用析构函数，再执行 operator delete 释放内存。  
-`delete[]` 会为数组中的每个元素调用析构函数，再执行 operator delete\[\] 释放内存。
+**placement new**
+
+如果你打算**在指定的内存位置构造对象**（需要先分配），请使用 **placement new**。这常用于 shared memory 或 memory-mapped I/O。
+
+```cpp
+#include <new>
+void* operator new(size_t, void* location) {
+    return location;
+}
+```
+
+**new\[\] 新建数组**
+
+delete 会先调用析构函数，再执行 operator delete 释放内存。  
+delete\[\] 会为数组中的每个元素调用析构函数，再执行 operator delete\[\] 释放内存。
+
+### 异常
+
+
 
