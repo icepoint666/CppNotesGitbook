@@ -26,7 +26,7 @@
 
 ## 字符串
 
-* [strcpy, strcmp的实现](zi-fu-chuan/strcpy-strcmp-de-shi-xian.md)
+* [strcpy, strcmp, strstr的实现](zi-fu-chuan/strcpy-strcmp-de-shi-xian.md)
 
 ## 关键字
 
@@ -51,6 +51,7 @@
 * [RAII思想](nei-cun-guan-li/raii-si-xiang.md)
 * [malloc、calloc、realloc、alloca](nei-cun-guan-li/malloc-calloc-realloc-alloca.md)
 * [new, delete, 定位 new](nei-cun-guan-li/new-delete-ding-wei-new.md)
+* [memcpy, memcmp, memset用法](nei-cun-guan-li/memcpy-memcmp-memset-yong-fa.md)
 * [智能指针](nei-cun-guan-li/zhi-neng-zhi-zhen.md)
 * [尾递归优化](nei-cun-guan-li/wei-di-gui-you-hua.md)
 

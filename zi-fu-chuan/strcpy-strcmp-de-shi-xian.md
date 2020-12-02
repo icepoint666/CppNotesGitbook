@@ -1,2 +1,2 @@
-# strcpy, strcmp的实现
+# strcpy, strcmp, strstr的实现
 
