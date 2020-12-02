@@ -9,13 +9,45 @@ sizeof是运算符
 * 普通继承，派生类继承了所有基类的函数与成员，要按照**字节对齐**来计算大小
 * 对于包含虚函数的类，**不管有多少个虚函数，只有一个虚指针**,vptr的大小
 
-  vptr指针大小是8\(32位操作系统4字节，64位操作系统 8字节\)
+  **vptr指针大小是8\(32位操作系统4字节，64位操作系统 8字节\)**
 
 * **虚函数继承**，不管是单继承还是多继承，**都是继承了基类的vptr**
 
   派生类虚继承多个虚函数会继承所有函数的vptr
 
-示例1：
+**示例0：\(64位\)**
+
+```cpp
+typedef enum {T_NULL, T_FALSE} json_type;
+
+typedef struct json_value json_value;
+typedef struct json_member json_member;
+struct json_value {
+    union {
+        struct { json_member* m; size_t size, capacity; }o; //24 = 8 + 8 + 8
+        struct { json_value*  e; size_t size, capacity; }a; //24 = 8 + 8 + 8
+        struct { char* s; size_t len; }s;                   //16 = 8 + 8
+        double n;                                           //8
+    }u;             //24 = max(24, 24, 16, 8)
+    json_type type; //4
+};                  //32 (内存对齐)
+struct json_member {
+    char* k; size_t klen;   //16 = 8 + 8
+    json_value v;           //32
+};                          //48
+int main()
+{
+
+  std::cout << sizeof(size_t) << std::endl;      //8：size_t本质是unsigend long int
+  std::cout << sizeof(json_type) << std::endl;   //4：enum是int
+  std::cout << sizeof(double) << std::endl;      //8
+  std::cout << sizeof(char*) << std::endl;       //8：64位指针长度为8
+  std::cout << sizeof(json_member) << std::endl; //48
+  std::cout << sizeof(json_value) << std::endl;  //32
+}
+```
+
+**示例1：**
 
 ```cpp
 #include<iostream>
@@ -175,7 +207,7 @@ sizeof(s)  // 输出8
 
 {% embed url="https://zhuanlan.zhihu.com/p/83449008" %}
 
-**内存对齐最最底层的原因是内存的IO是以8个字节64bit为单位进行的。** 对于64位数据宽度的内存，假如cpu也是64位的cpu（现在的计算机基本都是这样的），每次内存IO获取数据都是从同行同列的8个chip中各自读取一个字节拼起来的。从内存的0地址开始，0-7字节的数据可以一次IO读取出来，8-15字节的数据也可以一次读取出来。
+**内存对齐最最底层的原因是内存的IO是以8个字节64bit为单位进行的。** 对于**64位数据宽度的内存**，假如cpu也是64位的cpu（现在的计算机基本都是这样的），每次内存IO获取数据都是从同行同列的8个chip中各自读取一个字节拼起来的。从内存的0地址开始，0-7字节的数据可以一次IO读取出来，8-15字节的数据也可以一次读取出来。
 
 指定要获取的是0x0001-0x0008，也是8字节，**但是不是0开头的，内存需要怎么工作呢？**没有好办法，内存只好先工作一次把0x0000-0x0007取出来，然后再把0x0008-0x0015取出来，把两次的结果都返回给你。 CPU和内存IO的硬件限制导致没办法一次跨在两个数据宽度中间进行IO。这样你的应用程序就会变慢
 
