@@ -34,7 +34,7 @@ UTF：Unicode 转换格式（Uniform Transformation Format）
 
 示例：
 
-```text
+```c
 strlen("天青色等烟雨，而我在等你!") //输出:37
 ```
 
