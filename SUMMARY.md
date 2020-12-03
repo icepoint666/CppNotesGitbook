@@ -27,6 +27,7 @@
 ## 字符串
 
 * [strcpy, strcmp, strstr的实现](zi-fu-chuan/strcpy-strcmp-de-shi-xian.md)
+* [ASCII, Unicode, UTF-8编码](zi-fu-chuan/ascii-unicode-utf8-bian-ma.md)
 
 ## 关键字
 
