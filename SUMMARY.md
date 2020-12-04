@@ -117,4 +117,5 @@
 * [vector中存储future变量](bugs-ji-lu-1/untitled.md)
 * [volatile T类型返回时不等于T&](bugs-ji-lu-1/volatiletlei-xing-fan-hui-shi-bu-deng-yu-t.md)
 * [static静态函数中用到的static静态变量声明](bugs-ji-lu-1/static-jing-tai-han-shu-zhong-yong-dao-de-static-jing-tai-bian-liang-sheng-ming.md)
+* [非静态成员函数不能作为参数传入到跟它一个对象的成员函数中](bugs-ji-lu-1/fei-jing-tai-cheng-yuan-han-shu-bu-neng-zuo-wei-can-shu-chuan-ru-dao-gen-ta-yi-ge-dui-xiang-de-cheng.md)
 
