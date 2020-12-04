@@ -43,12 +43,20 @@ unique\_ptr 是 C++11 才开始提供的类型，是一种在异常时可以帮�
 * unique\_ptr 用于取代 auto\_ptr
 * **unique\_ptr因为无法同时拥有两个引用，所以转移指针需要`std::move`来完成**
 
-**unique\_ptr初始化（不能直接new T\(\)返回\)**
+**unique\_ptr初始化（不能直接new T\(\)返回,  C++11需要自定义一个std::make\_unique函数\)**
 
 ```cpp
-std::unique_ptr<T> p = std::unique_ptr<T>(new T());  //c++11
-std::unique_ptr<T> p;
-p = std::make_unique<T>(new T()); //c++14
+#if __cplusplus >= 201402L //c++14
+    #include <utility>
+    using namespace std::make_unique;
+#else                      //c++11
+    template<class T, class... Args>
+    std::unique_ptr<T> make_unique(Args&&... args){
+        return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+    }
+#endif
+//使用
+std::unique_ptr<Epoller> p = make_unique<T>(args);
 ```
 
 ### **auto\_ptr**
