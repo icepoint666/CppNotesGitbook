@@ -81,13 +81,9 @@ Singleton* Singleton::_instance = 0;
 #include <mutex>
 using namespace std;
 std::mutex mt;
-class Singleton
-{
-private:
-    Singleton(){}
+class Singleton{
 public:
-    static Singleton* instance()
-    {
+    static Singleton* instance(){
         mt.lock();  // 加锁
         if(_instance == 0)
             _instance = new Singleton();
@@ -95,6 +91,7 @@ public:
         return _instance;
     }
 private:
+    Singleton(){}
     static Singleton* _instance;
 };
 Singleton* Singleton::_instance = 0;
@@ -111,15 +108,10 @@ Singleton* Singleton::_instance = 0;
 #include <mutex>
 using namespace std;
 std::mutex mt;
-class Singleton
-{
-private:
-    Singleton(){}
+class Singleton{
 public:
-    static Singleton* instance()
-    {
-        if(_instance == 0)
-        {
+    static Singleton* instance(){
+        if(_instance == 0){
             mt.lock();
             if(_instance == 0)
                 _instance = new Singleton();
@@ -128,9 +120,8 @@ public:
         return _instance;
     }
 private:
+    Singleton(){}
     static Singleton* _instance;
-public:
-    int atestvalue;
 };
 Singleton* Singleton::_instance = 0;
 ```
@@ -272,7 +263,7 @@ public:
 
 private:
 	Singleton() = default;
-	Singleton(const Singleton& other) = delete; //禁止使用拷贝构造函数
+	Singleton(const Singleton&) = delete; //禁止使用拷贝构造函数
 	Singleton& operator=(const Singleton&) = delete; //禁止使用拷贝赋值运算符
 };
 

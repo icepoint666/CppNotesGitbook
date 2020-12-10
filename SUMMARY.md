@@ -122,4 +122,5 @@
 * [初始化对象方式错误，编译器可能会把它当作函数声明](bugs-ji-lu-1/chu-shi-hua-dui-xiang-fang-shi-cuo-wu-bian-yi-qi-ke-neng-hui-ba-ta-dang-zuo-han-shu-sheng-ming.md)
 * [void \* 与 member function指针 的转换](bugs-ji-lu-1/void-yu-member-function-zhi-zhen-de-zhuan-huan.md)
 * [两个类互相调用：前向声明](bugs-ji-lu-1/liang-ge-lei-hu-xiang-tiao-yong-qian-xiang-sheng-ming.md)
+* [静态成员函数的最大特点](bugs-ji-lu-1/jing-tai-cheng-yuan-han-shu-de-zui-da-te-dian.md)
 
