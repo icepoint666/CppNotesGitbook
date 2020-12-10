@@ -46,18 +46,15 @@
 ```cpp
 #include <iostream>
 using namespace std;
-class Singleton
-{
-private:
-    Singleton(){}
+class Singleton{
 public:
-    static Singleton* instance()
-    {
+    static Singleton* instance(){
         if(_instance == 0)
             _instance = new Singleton();
         return _instance;
     }
 private:
+    Singleton(){}
     static Singleton* _instance;
 };
 Singleton* Singleton::_instance = 0;
