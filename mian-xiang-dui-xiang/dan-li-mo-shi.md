@@ -39,6 +39,10 @@
 
 ### 实现一：单线程实现（线程不安全）
 
+**构造函数需要是私有的**
+
+**访问实例的函数才是public，在这个逻辑里判断是否已创建过**
+
 ```cpp
 #include <iostream>
 using namespace std;
