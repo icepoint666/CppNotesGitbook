@@ -121,3 +121,5 @@ vector<int> vec;
 vec.insert(vec.begin(), data, data + nums);
 ```
 
+insert函数就可以直接完成从数组拷贝元素到vector中，非常简单高效
+
