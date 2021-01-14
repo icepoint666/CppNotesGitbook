@@ -123,3 +123,20 @@ vec.insert(vec.begin(), data, data + nums);
 
 insert函数就可以直接完成从数组拷贝元素到vector中，非常简单高效
 
+区间创建，区间插入，区间删除，区间赋值
+
+```cpp
+//创建
+vector<int> vec2(vec1.begin(), vec1.end());
+//插入
+void container::insert(iterator position,
+                InputIterator begin,
+                InputIterator end);
+vec2.insert(vec2.begin(), vec1.begin()+vec1.size()/2, vec1.end());
+//删除：顺序容器可以返回下一个迭代器，关联容器没有返回值
+iterator container::erase(iterator begin, iterator end);
+void container::erase(iterator begin, iterator end);
+//赋值
+void container::assign(iterator begin, iterator end);
+```
+
