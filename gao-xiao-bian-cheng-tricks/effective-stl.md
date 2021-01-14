@@ -4,11 +4,23 @@
 
 #### 序列容器 与 关联容器
 
-序列：vector， string， deque，list，slist（非标准）
+序列：vector， string， deque，list，slist（单向链表，非标准）
 
 关联：map，multimap，set，multiset，hashset, hashmultiset...
 
-\#\#\# 连续内存容器 与 基于节点容器
+#### 连续内存容器 与 基于节点容器
+
+连续内存容器，contiguous memory container
+
+* 元素存放在一块或者多块内存中，每块内存中存有多个元素
+* 当有新元素插入或者元素删除的时候，同一块内存中的其他元素都要向前向后移动，为了腾出空间
+* vector， deque，string
+* 弊端：这样会影响效率，并且也会影响异常安全性
+
+基于节点的容器，node-based memory container
+
+* 在每一个动态分配的内存块中只存放一个元素，容器中元素的插入与删除只影响当前节点的指针，不会影响节点内容本身
+* list，slist，标准的哈希容器（平衡树实现的），非标准的哈希容器
 
 
 
