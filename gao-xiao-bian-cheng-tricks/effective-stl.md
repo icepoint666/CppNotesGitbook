@@ -103,3 +103,21 @@ list的实现是一种权衡trade-off在size\(\)与splice\(\)
 * splice是list独有的一种操作：链接，将list2的某个节点之后的整个部分，链接到list1后面（如果不遍历数一下是不知道有多少个元素链接过来，所以size\(\)就是线性时间数出来有多少个元素
 * 选择把splice实现为常数时间，然而舍弃了size\(\)的效率
 
+### 5.学会使用区间操作的成员函数，而不是for循环对单个元素操作
+
+示例1：assign，给定v1 与v2 两个vector，希望v1的内容与v2的后半段相同
+
+```cpp
+v1.assign(v2.begin() + v2.size() / 2, v2.end());
+```
+
+assign就是赋值的成员函数，只需要区间操作一行代码就可以搞定
+
+示例2: int数组拷贝到一个vector的前端
+
+```cpp
+int data[nums];
+vector<int> vec;
+vec.insert(vec.begin(), data, data + nums);
+```
+
