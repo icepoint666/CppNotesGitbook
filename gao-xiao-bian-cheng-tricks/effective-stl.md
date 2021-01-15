@@ -257,11 +257,81 @@ struct StringPtrLess{
 set<string*, StringPtrLess> StringPtrSet;
 ```
 
-### 21. 总是让比较函数在等值情况下返回false
+### 21.总是让比较函数在等值情况下返回false
 
 如果对于相等的比较返回true的话，就回修改到原来的比较对象，这个是不希望看到的
 
 不然它们会破坏所有的标准关联容器，不管它们是否允许存储重复的值
+
+### 22.切勿直接修改set或multiset中的键
+
+因为set与multiset按照一定顺序存放自己的元素，理论上是可以随时改变其中的元素，也就是改变了其中的键
+
+**这个条款并没有提到map与multimap，因为本身对于map、multimap直接去修改key是行不通的（）类似于const的约束），不能通过编译，但是set与multiset是有可能的修改，所以尽量不要修改set/multiset中的键**
+
+**示例：存放雇员信息的set容器，因为是用其中的ID进行集合排序的，所以认为ID就是这个set中的键**
+
+```cpp
+class MyClass{
+public:
+    ...
+    const string& name() const;
+    int idNumber() const;
+    ...
+};
+struct IDNumberLess{
+    bool operator() (const Employee& lhs, const Employee& rhs) const{
+        return lhs.idNumber() < rhs.idNumber();
+    }
+};
+set<Employee, IDNumberLess> se; //se是按照ID号进行排序的雇员集合
+```
+
+**避免修改的解决办法就是拷贝一份，删除后再添加**
+
+### 23.考虑用排序的vector替代关联容器标准
+
+**标准关联容器**通常被实现为平衡的二叉查找树，对实现有一些优化
+
+**主要应对的场景：插入，删除，查找的操作混合在一起**
+
+**但也存在这样的应用场景：**
+
+* ①设置阶段：创建一个新的容器，插入大量元素
+* ②查找阶段：主要是查找操作，几乎没有插入与删除操作
+* ③重组阶段：主要是改变数据结构的内容，可能是删除原有的元素，然后插入大量的新元素
+
+**这种情况下，往往一个排序的vector容器比关联容器存在更好的性能**
+
+**数量掌握vector&lt;pair&gt;与map的转换也是很有必要的，因为对map中的value进行排序往往需要依赖vector来完成**
+
+### **24.当效率很重要的时候，请在map::operator\[\]与map::insert之间谨慎做出选择**
+
+```cpp
+class Widget{
+public:
+    Widget();
+    Widget(double weight);
+    Widget& operator=(double weight);
+    ...
+};
+
+map<int, Widget>m;
+m[1] = 1.50;
+m[2] = 3.67;
+```
+
+**operator\[\]** 具体的工作方式：
+
+对于map&lt;K,V&gt;m, m\[k\] = v;
+
+* operator\[\]返回一个引用，它指向与k相关联的值对象，然后v被赋给该引用所指向的对象
+* 如果键k已经有了相关联的值，那么就更新原本的值
+* 如果键k没有相关联的值，那么就用值的类型默认构造函数创建一个新的对象，然后返回一个指向改新对象的引用
+
+所以，之所以**相比于insert会降低性能的缘故就是：需要先默认构造一个，然后再赋值给他新值**
+
+**insert操作：直接使用我们需要的值构造一个对象（少了一个赋值操作）**
 
 ## 函数
 
