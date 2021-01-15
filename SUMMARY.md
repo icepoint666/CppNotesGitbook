@@ -45,6 +45,7 @@
 * [namespace, ::运算符](guan-jian-zi/namespace.md)
 * [union](guan-jian-zi/union.md)
 * [explicit](guan-jian-zi/explicit.md)
+* [lambda表达式](guan-jian-zi/lambda-biao-da-shi.md)
 
 ## 内存管理
 
