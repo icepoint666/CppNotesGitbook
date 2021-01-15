@@ -206,3 +206,87 @@ realloc包含4个部分：
 
 reserve成员函数能把重新分配的次数讲到最低
 
+### 16.把vector与string传给旧的C API
+
+c++要求vector中的元素存储在连续的内存中
+
+对于vector, 想利用C api访问数组第一个元素的指针 `&v[0]`
+
+对于string, 访问string第一个字符的指针，也就是char\*  `s.c_str()`
+
+### 17.使用“swap技巧”来shrink to fit，除去多余的capacity容量
+
+会将原本容器压缩至适当大小，紧缩capacity\(\)为size\(\)
+
+```cpp
+vector<T>contents.swap(contents);
+
+string s;
+string (s).swap(s);
+```
+
+### 18.避免使用vector&lt;bool&gt;
+
+* 因为首先它不是一个STL容器，不满足STL容器的要求
+* 其次也并不存储bool
+
+可以使用deque&lt;bool&gt; bitset来代替这个vector&lt;bool&gt;
+
+## 关联容器
+
+## 函数
+
+### 32.如果确实需要删除元素，则需要在remove这一类算法之后调用erase
+
+**remove的本质：把删除元素的位置，被不删除元素填充（有点像从vector移除元素那种双指针移除法），但是size没有变**
+
+**返回的一个迭代器指向最后一个不用被删除的元素**
+
+需要一对迭代器来指定所有进行操作的元素区间，它并不接受容器作为参数
+
+所以remove并没有办法从迭代器中推断出容器类型**，所以remove不可能删除元素**
+
+**示例：**
+
+![](../.gitbook/assets/wu-biao-ti-%20%2813%29.png)
+
+![](../.gitbook/assets/wu-biao-ti-%20%2812%29.png)
+
+**remove一般配合erase来使用**
+
+```cpp
+v.erase(remove(v.begin(), v.end(), 99), v.end());
+```
+
+### 33.对包含指针的容器使用remove算法一定要注意：很可能内存泄漏
+
+
+
+### 44.容器的成员函数优先于同名的算法
+
+STL容器 提供了 count find lowerbound upperbound equalrange
+
+list提供了remove removeif unique sort merge reverse
+
+使用对应容器时，最好应该使用容器内部实现的成员函数，往往效率更高
+
+### 46.考虑使用函数对象而不是函数作为STL算法的参数
+
+像例如对vector降序排序, 传入一个**函数对象**，因为比传入函数**要快得多**
+
+```cpp
+vector<double>v;
+sort(v.begin(), v.end(), greater<double>());
+```
+
+传入函数的代码
+
+```cpp
+inline bool doubleGreater(double d1, double d2){
+    return d1 > d2;
+}
+sort(v.begin(), v.end(), doubleGreater);
+```
+
+
+
