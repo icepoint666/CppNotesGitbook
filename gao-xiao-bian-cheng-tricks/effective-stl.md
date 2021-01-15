@@ -232,6 +232,37 @@ string (s).swap(s);
 
 ## 关联容器
 
+### 20.包含指针的关联容器 需要指定 比较函数（排序方式）
+
+假设有一个包含string\*指针的set，把一些元素插入集合中，元素的有序完全是**按照指针来排序的，并不是按照string数值来排序**
+
+```cpp
+set<string*> ssp;
+ssp.insert(new string("Anteater");
+ssp.insert(new string("Tom");
+ssp.insert(new string("Hello");
+ssp.insert(new string("Color");
+```
+
+**解决问题：自己定义排序方式，使string\*指针在集合中按字符串的值排序**
+
+**\(注意要用比较类！用比较函数的话不能通过编译）**
+
+```cpp
+struct StringPtrLess{
+    bool operator() (const string* ps1, const string* ps2) const{
+        return *ps1 < *ps2;
+    }
+};
+set<string*, StringPtrLess> StringPtrSet;
+```
+
+### 21. 总是让比较函数在等值情况下返回false
+
+如果对于相等的比较返回true的话，就回修改到原来的比较对象，这个是不希望看到的
+
+不然它们会破坏所有的标准关联容器，不管它们是否允许存储重复的值
+
 ## 函数
 
 ### 32.如果确实需要删除元素，则需要在remove这一类算法之后调用erase
