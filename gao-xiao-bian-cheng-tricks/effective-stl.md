@@ -140,3 +140,69 @@ void container::erase(iterator begin, iterator end);
 void container::assign(iterator begin, iterator end);
 ```
 
+### 7. 如果容器中包含了通过new操作创建的指针，切记容器对象析构前要将指针delete掉
+
+```cpp
+vector<Widget*>vec;
+for(int i = 0; i < N; i++)
+    vec.push_back(new Widget);
+//析构前delete
+for(auto it=vec.begin();it!=vec.end();++it)
+    delete *it;
+```
+
+### 8.切勿创建包含auto\_ptr的容器对象
+
+### 9.删除元素注意事项
+
+序列容器
+
+* 如果容器是vector，string，deque，则使用erase-remove习惯用法
+
+  \(对vector来说, remove\(\)函数并不是真正的删除，要想真正删除元素则可以使用erase\)
+
+```cpp
+c.erase(1963); //只删除一个元素，返回值指向已删除元素的下一个位置 
+c.erase(remove(c.begin(), c.end(), 1963), c.end()) //删除所有值为1963的元素
+```
+
+* 如果容器是list，则使用remove
+
+```cpp
+c.remove(val); //list可以使用remove来删除
+```
+
+* **迭代器更新：**标准序列容器，写一个循环来遍历容器中的元素时（迭代器）每次调用erase，它的返回值就是表示更新的迭代器
+
+
+
+**关联容器**
+
+* 容器是关联容器，使用erase
+* **迭代器更新：**标准关联容器，当把迭代器传给erase时，要对迭代器做后缀递增！因为迭代器没有返回值
+
+```cpp
+c.erase(val)
+```
+
+### 12.STL的线程安全性
+
+STL的线程安全性其实跟具体的实现有关，一般尽量都能保证同步读的时候都可以共享，修改的时候加锁尽量减少锁粒度，这方面也有很多种不同的实现，github一些库会尝试实现线程安全的STL
+
+## vector和string
+
+### 13.动态分配数组new T\[...\]的时候，考虑用vector和string来代替
+
+因为当vector与string被析构时，它们析构函数会自动析构容器中的元素并释放包含这些元素的内存
+
+### 14.使用reserve来避免不必要的内存重新分配realloc
+
+realloc包含4个部分：
+
+* ①分配当前容量的某个倍数的内存
+* ②拷贝元素从旧的内存到新的内存
+* ③析构掉旧的内存中的对象
+* ④释放旧内存
+
+reserve成员函数能把重新分配的次数讲到最低
+
