@@ -58,11 +58,41 @@ std::shared\_ptr 为任意共享所有权的资源⼀种**自动垃圾回收的�
 
 ### **weak\_ptr**
 
+**最精确的描述：⼀个类似 std::shared\_ptr 但不影响对象引用计数的指针，不参与资源所有权共享**
+
+**这种指针可能指向一个被销毁的对象，在悬空时知晓，悬空\(dangle\)就是指针指向的对象不再存在**
+
 weak\_ptr 允许你共享但不拥有某对象，一旦最末一个拥有该对象的智能指针失去了所有权，任何 weak\_ptr 都会自动成空（empty）。因此，在 default 和 copy 构造函数之外，weak\_ptr 只提供 “接受一个 shared\_ptr” 的构造函数。
 
+测试是否是悬空指针：检查 std::weak\_ptr 是否已经失效
 
+```cpp
+auto spw = std::make_shared<Widget>();
+std::weak_ptr<Widget> wpw(spw);
+spw = nullptr;
 
-* 可打破环状引用（cycles of references，两个其实已经没有被使用的对象彼此互指，使之看似还在 “被使用” 的状态）的问题
+if(wpw.expired()) ...
+```
+
+一个原子操作**实现检查是否过期，如果没有过期就访问所指对象**。  
+这可以通过从 std::weak\_ptr 创建 std::shared\_ptr 来实现
+
+```cpp
+std::shared_ptr<Widget> spw1 = wpw.lock(); // if wpw's expired, spw1 is null 
+auto spw2 = wpw.lock(); // same as above, but uses auto
+```
+
+**std::weak\_ptr实现**
+
+从效率⻆度来看， std::weak\_ptr 与 std::shared\_ptr 基本相同。两者的⼤小是相同的
+
+构造、析构、赋值操作涉及引⽤计数的原⼦操作。std::weak\_ptr 不影响引⽤计数。只是 std::weak\_ptr 不参与对象的共享所有 权，因此不影响指向对象的引⽤计数。实际上在控制块中还是有第⼆个引用计数， std::weak\_ptr 操作的是第⼆个引用计数。
+
+**应用：**
+
+* 用于判断悬空指针
+* 潜在使用场景包括：caching、observer lists
+* 打破 std::shared\_ptr 指向循环，可打破环状引用（cycles of references，两个其实已经没有被使用的对象彼此互指，使之看似还在 “被使用” 的状态）的问题
 
 ### **unique\_ptr**
 
