@@ -91,6 +91,23 @@ Color c = Color::white; // 没问题
 auto c = Color::white; // 也没问题
 ```
 
+### 11.优先考虑使用deleted函数而非使用未定义的私有声明
+
+如果你写的代码要被其他⼈使⽤，你不想让他们调⽤某个特殊的函数，你通常不会声明这个函数
+
+但有时C++会给你⾃动声明⼀些函数，如果你想防⽌客⼾调⽤这些函数，就需要delete
+
+```cpp
+template <class charT, class traits = char_traits<charT> >
+class basic_ios : public ios_base {
+public:
+    …
+    basic_ios(const basic_ios& ) = delete;
+    basic_ios& operator=(const basic_ios&) = delete;
+    …
+};
+```
+
 ### 21.优先考虑使用std::make\_unique和 std::make\_shared而非new
 
 **核心：防止异常安全 + 内存分配更高效**
