@@ -9,6 +9,63 @@
 * Lambda表达式
 * 并发API
 
+### 1.模板类型推导
+
+一个函数模板
+
+```cpp
+template<typename T>
+void f(ParamType param);
+```
+
+T的推导不仅取决于表达式的类型，也取决于 ParamType的类型。这⾥有三种情况
+
+**1.ParamType是⼀个指针或引⽤，但不是通用引用**
+
+* 这种情况下，类型推导会这样进⾏： 
+
+  1. 如果expr的类型是⼀个引⽤，忽略引⽤部分 
+
+  2. 然后剩下的部分决定T，然后T与形参匹配得出最终ParamType
+
+```cpp
+template<typename T>
+void f(T & param); //param是⼀个引⽤
+
+int x=27; //x是int 
+const int cx=x; //cx是const int 
+const int & rx=cx; //rx是指向const int的引⽤ 
+
+f(x); //T是int，param的类型是int& 
+f(cx); //T是const int，param的类型是const int & 
+f(rx); //T是const int，param的类型是const int &
+```
+
+**2.Type是⼀个指针或引用，但不是通用引用**
+
+```cpp
+template<typename T> void f(T&& param); //param现在是⼀个通⽤引⽤类型 
+int x=27; //如之前⼀样 
+const int cx=x; //如之前⼀样 
+const int & rx=cx; //如之前⼀样 
+
+f(x); //x是左值，所以T是int&， param类型也是int& 
+f(cx); //cx是左值，所以T是const int &，param类型也是const int& 
+f(rx); //rx是左值，所以T是const int &，param类型也是const int& 
+f(27); //27是右值，所以T是int， param类型就是int&&
+```
+
+**3.当ParamType既不是指针也不是引⽤时，我们通过传值（pass-by-value）的方式处理**
+
+```cpp
+template<typename T>
+void f(T param); //以传值的⽅式处理param
+```
+
+对于传值类型推导，实参如果具有常量性和易变性会被忽略
+
+在模板类型推导时，数组或者函数实参会退化为指针，除**非**它们被⽤于初始化引⽤
+
 ### 7.区别使用\(\)和{}创建对象
 
 **初始化对象的一些方法（4种）：**
@@ -112,12 +169,58 @@ public:
 
 重写 与 重载 需要区分：虚函数是叫重写，其他是重载
 
-C++11提供⼀个⽅法让你可以显式的将派⽣类 函数指定为应该是基类重写版本：将它声明为 override
+C++11提供⼀个⽅法让你可以**显式的将派⽣类函数指定为应该是基类重写版本**：将它声明为 override
 
-**示例：**
+**示例：派生类重载基类函数的时候 有时存在一些错误**
 
 ```cpp
+class Base { 
+public: 
+    virtual void mf1() const;
+    virtual void mf2(int x);
+    virtual void mf3() &;
+    void mf4() const; 
+};
+class Derived: public Base { 
+public: 
+    virtual void mf1(); //错误：mf1 在基类声明为 const ,但是派⽣类没有这个常量限定符
+    virtual void mf2(unsigned int x); //错误：mf2 在基类声明为接受⼀个 int 参数，但是在派⽣类声明为接受 unsigned int 参数
+    virtual void mf3() &&; //错误：mf3 在基类声明为左值引⽤限定，但是在派⽣类声明为右值引⽤限定
+    void mf4() const; //错误：mf4 在基类没有声明为虚函数
+};
+```
 
+**最关键的是，实际操作中这些错误都无法被编译器检测到，无法warnings**
+
+**解决：加上override修饰，显式声明是重写，一旦出现错误，编译器就会报错**
+
+```cpp
+class Derived: public Base { 
+public:
+    virtual void mf1() override;
+    virtual void mf2(unsigned int x) override;
+    virtual void mf3() && override;
+    virtual void mf4() const override;
+};
+```
+
+**正确代码：**
+
+```cpp
+class Base {
+public:
+    virtual void mf1() const;
+    virtual void mf2(int x);
+    virtual void mf3() &;
+    virtual void mf4() const;
+};
+class Derived: public Base {
+public:
+    virtual void mf1() const override;
+    virtual void mf2(int x) override;
+    virtual void mf3() & override;
+    void mf4() const override; // 可以添加virtual，但不是必要
+};
 ```
 
 ### 13.优先考虑const\_iterator而非iterator
