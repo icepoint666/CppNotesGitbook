@@ -281,12 +281,12 @@ vtbl 数组的索引 0 处可以包含一个 type\_info 对象的指针，这个
 
 下面这个表各是对虚函数、多继承、虚基类以及 RTTI 所需主要代价的总结： 
 
-|  |  |  |  |
+|  | Increases Size of Objects | Increases Per-Class Data | Reduces Inlining |
 | :--- | :--- | :--- | :--- |
-| Virtual Functions |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| Virtual Functions虚函数 | 是 | 是 | 是 |
+| Multiple Inheritance多继承 | 是 | 是 | 不是 |
+| Virtual Base Classes虚基类 | 经常 | 偶尔 | 不是 |
+| RTTI | 不是 | 是 | 不是 |
 
 
 
