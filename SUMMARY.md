@@ -40,6 +40,7 @@
 * [using](guan-jian-zi/using.md)
 * [inline](guan-jian-zi/inline.md)
 * [volatile](guan-jian-zi/volatile.md)
+* [并发时用std::atomic而不是volatile](guan-jian-zi/bing-fa-shi-yong-stdatomic-er-bu-shi-volatile.md)
 * [decltype](guan-jian-zi/decltype.md)
 * [=default, =delete](guan-jian-zi/default-delete.md)
 * [namespace, ::运算符](guan-jian-zi/namespace.md)
