@@ -9,6 +9,62 @@
 * Lambda表达式
 * 并发API
 
+### 7.区别使用\(\)和{}创建对象
+
+**初始化对象的一些方法（4种）：**
+
+```cpp
+int x(0); //使⽤小括号初始化 
+int y = 0; //使⽤"="初始化 
+int z{0}; //使⽤花括号初始化
+int z = {0}; //使⽤"="和花括号
+```
+
+一些初始化方法构造的实现原理
+
+```cpp
+Widget w1; //调⽤默认构造函数 
+Widget w2 = w1; //调⽤拷⻉构造函数（不是赋值运算符）
+w1 = w2; //调⽤operator=函数（是⼀个赋值运算符）
+```
+
+**"="初始化，括号初始化**能被用于为**非静态数据成员指定默认初始值**
+
+```cpp
+class Widget{
+    ... 
+private: 
+    int x{0}; //没问题，x初始值为0 
+    int y = 0; //同上 
+    int z(0); //错误！ 
+}
+```
+
+**不可拷贝的对象**可以使用花括号初始化或者小括号初始化，但是不能使用"="初始化：
+
+```cpp
+std::vector<int> ai1{0}; //没问题，x初始值为0 
+std::atomic<int> ai2(0); //没问题 
+std::atomic<int> ai3 = 0; //错误！
+```
+
+**括号初始化的缺点**是有时它有⼀些令人惊讶的行为。 这些行为使得括号初始化和std::initializer\_list和构造函数重载决议本来就不清不楚的暧昧关系进⼀步混乱。
+
+在构造函数调⽤中，只要不包含std::initializer\_list参数，那么花括号初始化和小括号初始化都会产⽣⼀ 样的结果：
+
+```cpp
+class Widget { 
+public: 
+    Widget(int i, bool b); //未声明默认构造函数 
+    Widget(int i, double d); // std::initializer_list参数 
+    … 
+};
+Widget w1(10, true); // 调⽤构造函数 
+Widget w2{10, true}; // 同上 
+Widget w3(10, 5.0); // 调⽤第⼆个构造函数 
+Widget w4{10, 5.0}; // 同上
+```
+
 ### 21.优先考虑使用std::make\_unique和 std::make\_shared而非new
 
 **核心：防止异常安全 + 内存分配更高效**
