@@ -122,7 +122,43 @@ C++11提供⼀个⽅法让你可以显式的将派⽣类 函数指定为应该�
 
 ### 13.优先考虑const\_iterator而非iterator
 
+STL const\_iterator等价于指向常量的指针。它们都指向不能被修改的值。**标准实践是能加上const就加上，这也指示我们对待const\_iterator应该如出一辙。**
+
+**在最大程度通用的代码中，优先考虑非成员函数版本的begin，end，rbegin等，而非同名成员函数**
+
+* **标准化c++11只添加了**非成员函数**begin**和**end**
+* **c++14**提供了**cbegin，cend，rbegin，rend，crbegin，crend** 这些函数，其中**c开头的就是const iterator**
+* 非成员函数cbegin的实现：
+
+  这个cbegin模板接受任何容器或者类似容器的数据结构 C ，并且通过 const 引⽤访问第⼀个实参container。如果 C 是⼀个 普通的容器类型（如 std::vector ），container将会引⽤⼀个常量版本的容器（即 const std::vector& ）。对const容器调用非成员函数begin（由C++11提供\)将产出const\_iterator
+
+```cpp
+template <class C>
+auto cbegin(const C& container)->decltype(std::begin(container)){
+    return std::begin(container); // 解释⻅下
+}
+```
+
+
+
 ### 14.如果函数不抛出异常请使用noexcept
+
+函数是否为noexcept和成员函数是否const⼀样重要。如果知道这个函数不会抛异常就 加上noexcept是简单天真的接口说明
+
+**给不抛异常的函数加上noexcept的动机：它允许编译器生成更好的目标代码**
+
+考虑⼀个函数f，它允 许调⽤者永远不会受到⼀个异常。两种表达方式如下：
+
+```cpp
+int f(int x) throw(); // C++98⻛格  较少优化
+int f(int x) noexcept; // C++11⻛格  极尽所能优化
+int f(int x);         //不优化
+```
+
+* noexcept是函数接口的⼀部分，这意味着调⽤者会依赖它
+* noexcept函数较之于非noexcept函数更容易优化
+* noexcept对于**移动语义,swap，内存释放函数和析构函数**非常有用
+* 大多数函数是异常中⽴的\(译注：可能抛也可能不抛异常）而不是noexcept
 
 ### 15.尽可能的使用constexpr
 
