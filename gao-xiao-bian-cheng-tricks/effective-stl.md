@@ -361,7 +361,7 @@ v.erase(remove(v.begin(), v.end(), 99), v.end());
 
 主要因为remove只是让新元素覆盖到原来删除元素的位置
 
-![](../.gitbook/assets/wu-biao-ti-%20%2816%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%2817%29.png)
 
 本质：**“要被删除”的指针 已经被那些“不会被删除”的指针覆盖了** 
 

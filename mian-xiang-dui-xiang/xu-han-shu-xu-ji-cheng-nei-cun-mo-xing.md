@@ -245,7 +245,7 @@ struct D : public B, public C
 
 **对象 D 的内存布局 就是这样的，这里对象中被编译器加入的部分就是蓝色部分**
 
-![](../.gitbook/assets/wu-biao-ti-%20%2815%29.png)
+![](../.gitbook/assets/wu-biao-ti-%20%2816%29.png)
 
 首先对类型`A`的内存模型进行分析。由于虚继承影响的是子类，不会对父类造成影响，因此`A`的内存布局和虚表都没有改变。
 
