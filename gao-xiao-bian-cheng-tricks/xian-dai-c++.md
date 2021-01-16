@@ -73,3 +73,44 @@ auto spw = std::make_shared_ptr<Widget>(); //一次分配就够了
 
 对于 std::shared\_ptr  make函数可能不被建议的其他情况包括 \(1\)有⾃定义内存管理的类和 \(2\)特别关注内存的系统，⾮常⼤的对象，以及 std::weak\_ptr 比对应的 std::shared\_ptr 活得更久
 
+### 41.如果参数可拷贝并且移动操作开销很低，总是考虑 直接按值传递
+
+对于可复制，移动开销低，而且⽆条件复制的参数，按值传递效率基本与按引⽤传递效率⼀致，而且易于实现，⽣成更少的⽬标代码
+
+通过构造函数拷⻉参数可能⽐通过赋值拷⻉开销⼤的多
+
+### 42.emplace\_back比push\_back效率更高，因为是依靠完美转发实现，而不是构造拷贝
+
+示例：
+
+```cpp
+std::vector<std::string> vs; // container of std::string 
+vs.push_back("xyzzy"); // add string literal
+```
+
+push\_back的本质：
+
+std::vector 的 push\_back 被按左值和右值分别重载：
+
+在 vs.push\_back\("xyzzy"\) 这个调⽤中，编译器看到参数类型（const char\[6\]）和 push\_back 采⽤的 参数类型（ std::string 的引⽤）之间不匹配。它们通过从字符串字⾯量创建⼀个 std::string 类型 的临时变量来消除不匹配，然后传递临时变量给 push\_back，**本质上上述过程等于下面的代码：**
+
+```cpp
+vs.push_back(std::string("xyzzy")); 
+// create temp std::string and pass it to push_back
+```
+
+**并不仅调用了 一次构造器，调用了两次，而且还调用了析构器**
+
+**解决：**不使⽤ push\_back ，使用的是 emplace\_back
+
+**emplace\_back 使用完美转发**，因此只要你**没有遇到完美转发的限制（完美转发里提到的fail case）**，就可以传递任何 参数以及组合到 emplace\_back
+
+* 当然就像预期的那样，emplacement执⾏性能优于insertion，但是，有些场景反而 insertion更快
+* 这些情况不是很容易描述，比较依赖于传递的参数类型、容器类型、emplacement或 insertion的容器位置、
+
+总的来说，当执⾏如下操作时，emplacement函数更快 
+
+* 1. 值被构造到容器中，而不是直接赋值
+* 2. 传⼊的类型与容器类型不⼀致 
+* 3. 容器不拒绝已经存在的重复值
+
