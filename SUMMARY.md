@@ -56,6 +56,7 @@
 * [new, delete, 定位 new](nei-cun-guan-li/new-delete-ding-wei-new.md)
 * [memcpy, memcmp, memset用法](nei-cun-guan-li/memcpy-memcmp-memset-yong-fa.md)
 * [智能指针](nei-cun-guan-li/zhi-neng-zhi-zhen.md)
+* [pimpl惯用法](nei-cun-guan-li/pimpl-guan-yong-fa.md)
 * [尾递归优化](nei-cun-guan-li/wei-di-gui-you-hua.md)
 
 ## 面向对象
@@ -78,7 +79,7 @@
 
 * [Effective C++（浓缩部分）](gao-xiao-bian-cheng-tricks/effective-c++.md)
 * [More Effective C++](gao-xiao-bian-cheng-tricks/more-effective-c++.md)
-* [Modern Effective C++](gao-xiao-bian-cheng-tricks/xian-dai-c++.md)
+* [Effective Modern C++](gao-xiao-bian-cheng-tricks/xian-dai-c++.md)
 * [Effective STL](gao-xiao-bian-cheng-tricks/effective-stl.md)
 * [Google编程格式规范](gao-xiao-bian-cheng-tricks/google-bian-cheng-ge-shi-gui-fan.md)
 * [Google C++ Style Guide](gao-xiao-bian-cheng-tricks/google-c++-style-guide.md)
