@@ -283,7 +283,7 @@ vtbl 数组的索引 0 处可以包含一个 type\_info 对象的指针，这个
 
 |  |  |  |  |
 | :--- | :--- | :--- | :--- |
-| Virtual Functions**虚函数** |  |  |  |
+| Virtual Functions |  |  |  |
 |  |  |  |  |
 |  |  |  |  |
 |  |  |  |  |
