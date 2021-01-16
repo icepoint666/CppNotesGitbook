@@ -108,6 +108,74 @@ public:
 };
 ```
 
+### 12.使用override声明重载函数
+
+重写 与 重载 需要区分：虚函数是叫重写，其他是重载
+
+C++11提供⼀个⽅法让你可以显式的将派⽣类 函数指定为应该是基类重写版本：将它声明为 override
+
+**示例：**
+
+```cpp
+
+```
+
+### 13.优先考虑const\_iterator而非iterator
+
+### 14.如果函数不抛出异常请使用noexcept
+
+### 15.尽可能的使用constexpr
+
+* constexpr对象是cosnt，它的值在编译期可知
+* 当传递编译期可知的值时，constexpr函数可以产出编译期可知的结果
+
+### 16.让const成员函数线程安全
+
+需要注意的是：确保**const成员函数**线程安全，除非你确定它们永远不会在**临界区（concurrent context）**中使用
+
+**const 成员函数，一般就表示着它是⼀个读操作，但是有时候不是线程安全的**
+
+最普遍简单的⽅法就是-------使⽤互斥锁：
+
+```cpp
+class Polynomial {
+public: 
+    using RootsType = std::vector<double>;
+    RootsType roots() const {
+        std::lock_guard<std::mutex> g(m); // lock mutex 
+        if (!rootsAreVaild) { // 如果缓存⽆效 计算/存储roots
+            rootsAreVaild = true;
+        }
+        return rootsVals;
+    } // unlock mutex 
+private:
+    mutable std::mutex m;
+    mutable bool rootsAreVaild { false };
+    mutable RootsType rootsVals {}; 
+};
+```
+
+注意：std::atomic 可能⽐互斥锁提供更好的性能，但是它只适合操作单个变量或内存位置
+
+### 17.注意特殊成员函数的生成
+
+**特殊成员函数**是编译器可能⾃动⽣成的函数（6个）：
+
+* 默认构造函数
+* 析构函数
+* 拷贝构造函数
+* 拷贝赋值运算符
+* 移动构造函数
+* 移动赋值运算符
+
+**移动操作（移动构造函数+移动赋值运算符函数）**一般不会自动生成，在当**类没有没有显式声明**移动操作，拷⻉操作，析构时才⾃动⽣成
+
+**拷贝构造函数** 仅当类没有显式声明构造构造时才⾃动⽣成，并且如果用户声明了移动操作，拷贝构造就是delete
+
+**拷贝赋值运算符**仅当类没有显式声明拷贝赋值运算符时才⾃动⽣成，并且如果用户声明 了移动操作，拷贝赋值运算符就是delete
+
+当用户声明了**析构函数**，**拷贝操作不再自动生成**
+
 ### 21.优先考虑使用std::make\_unique和 std::make\_shared而非new
 
 **核心：防止异常安全 + 内存分配更高效**
