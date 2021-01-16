@@ -296,7 +296,68 @@ vtbl 数组的索引 0 处可以包含一个 type\_info 对象的指针，这个
 
 ### 34. 如何在同一个程序中结合 C 和 C++
 
+四个要考虑的问题：名变换，静态初始化，内存动态分配，数据结构兼容。
 
+**名变换：**
 
+名变换就是 C++编译器给程序的每个函数换一个独一无二的名字
 
+在 C 中，这个过程是不需要的，因为没有函数重载
+
+如果是一个C库函数，编译后的函数仍然是原来的名字，没有产生名变换动作，但是C++编译器链接的时候，将会得到一个错误
+
+**要解决这个问题，你需要一种方法来告诉 C++编译器不要在这个函数上进行名变换**
+
+**所以C++中使用extern "C"的一个作用就是禁止名变换**
+
+```cpp
+extern "C" 
+void drawLine(int x1, int y1, int x2, int y2);
+```
+
+经常，你有一堆函数不想进行名变换，为每一个函数添加 extern 'C'是痛苦的。幸好， 这没必要。extern 'C'可以对一组函数生效，只要将它们放入一对大括号中：
+
+```cpp
+extern "C" { // disable name mangling for 
+ // all the following functions 
+ void drawLine(int x1, int y1, int x2, int y2); 
+ void twiddleBits(unsigned char bits); 
+ void simulate(int iterations); 
+ ... 
+}
+```
+
+一般使用方法
+
+```cpp
+#ifdef __cplusplus 
+extern "C" { 
+#endif 
+ void drawLine(int x1, int y1, int x2, int y2); 
+ void twiddleBits(unsigned char bits); 
+ void simulate(int iterations); 
+ ... 
+#ifdef __cplusplus 
+} 
+#endif
+```
+
+**静态初始化**
+
+在 main 执行前和执行后都有大量代 码被执行。尤其是，静态的类对象和定义在全局的、命名空间中的或文件体中的类对象的构 造函数通常在 main 被执行前就被调用。这个过程称为静态初始化
+
+```cpp
+extern "C" // implement this 
+int realMain(int argc, char *argv[]); // function in C 
+int main(int argc, char *argv[]) // write this in C++ 
+{ 
+ return realMain(argc, argv); 
+}
+```
+
+只要可能，用 C++写 main\(\)
+
+**数据结构的兼容性**
+
+在 C++和 C 之间传递数据
 
