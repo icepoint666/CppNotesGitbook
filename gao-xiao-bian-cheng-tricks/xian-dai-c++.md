@@ -65,6 +65,32 @@ Widget w3(10, 5.0); // 调⽤第⼆个构造函数
 Widget w4{10, 5.0}; // 同上
 ```
 
+### 8.优先考虑nullptr而非0和NULL
+
+* 字面值0是⼀个int不是指针
+* NULL也是这样的：NULL的实现细节有些不确定因素， 因为实现被允许给NULL⼀个除了int之外的整型类型（⽐如long）
+
+nullptr的优点是它不是整型。 ⽼实说它也不是⼀个指针类型，但是你可以把它认为是通⽤类型的指针。 nullptr的真正类型是std::nullptr\_t
+
+### 10.优先考虑限域枚举而非未限域枚举
+
+**未限域枚举**
+
+```cpp
+enum Color { black, white, red }; // black, white, red 和 Color⼀样都在相同作⽤域 
+auto white = false; // 错误! white早已在这个作⽤域中存在
+```
+
+**限域枚举**是通过enum class声明，所以它们有时候也被称为枚举类\(enum classes\)
+
+```cpp
+enum class Color { black, white, red }; // black, white, red 限制在Color域内 
+auto white = false; // 没问题，同样域内没有这个名字
+Color c = white; //错误，这个域中没有white
+Color c = Color::white; // 没问题
+auto c = Color::white; // 也没问题
+```
+
 ### 21.优先考虑使用std::make\_unique和 std::make\_shared而非new
 
 **核心：防止异常安全 + 内存分配更高效**
