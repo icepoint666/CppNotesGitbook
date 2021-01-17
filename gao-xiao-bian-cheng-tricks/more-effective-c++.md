@@ -331,31 +331,42 @@ void someFunction()
 
 能避开所有上述问题：这种方法**不会有对象删除的问题**而且也**能捕获标准异常类型**。这种方法也**没有 slicing problem**，而且**异常对象只被拷贝一次**。
 
+**正确写法**
+
 ```cpp
-void someFunction() 
- ... 
- if (a validation 测试失败) { 
- throw Validation_error(); 
- } 
- ... 
+void someFunction() {
+    ... 
+    if (a validation 测试失败) { 
+        throw Validation_error(); 
+    } 
+    ... 
 } 
-void doSomething() 
-{ 
- try { 
- someFunction(); // 没有改变 
- } 
- catch (exception& ex) { // 这里，我们通过引用捕获异常 
- // 以替代原来的通过值捕获 
- cerr << ex.what(); // 现在调用的是 
- // Validation_error::what(), 
- ... // 而不是 exception::what() 
- } 
+void doSomething() { 
+    try { 
+        someFunction(); // 没有改变 
+    } 
+    catch (exception& ex) { // 这里，我们通过引用捕获异常 
+        cerr << ex.what(); // 现在调用的是Validation_error::what(), 
+        ... 
+    } 
 }
 ```
 
-\*\*\*\*
+### 14.审慎使用异常规格\(exception specifications\)
 
-\*\*\*\*
+### **15.**了解异常处理的系统开销
+
+为了在运行时处理异常，程序要记录大量的信息。
+
+* 无论执行到什么地方，程序都必须能够识别出如果在此处抛出异常的话，将要被释放哪一个对象
+* 程序必须知道每一个入口点， 以便从 try 块中退出
+* 对于每一个 try 块，他们都必须跟踪与其相关的 catch 子句以及这些 catch 子句能够捕获的异常类型
+
+异常处理的第二个开销来自于 try 块，无论何时使用它，也就是当你想能够捕获异 常时，那你都得为此付出代价
+
+异常处理确是有代价的，即使你没有使用 try，throw 或 catch 关键字，你同样得付出一些代价
+
+理论上不能对这些代价进行选择：异常是 C++的一部分，C++编译器必须支持异常。不过实际上大部分支持异常的编译器生产商都允许你自由控制是否在生成 的代码里包含进支持异常的内容
 
 ## 效率
 
