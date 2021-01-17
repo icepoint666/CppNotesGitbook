@@ -49,6 +49,7 @@
 * [explicit](guan-jian-zi/explicit.md)
 * [lambda表达式](guan-jian-zi/lambda-biao-da-shi.md)
 * [mutable](guan-jian-zi/mutable.md)
+* [try, catch, throw异常处理](guan-jian-zi/try-catch-throw-yi-chang-chu-li.md)
 
 ## 内存管理
 
