@@ -22,6 +22,7 @@
 * [类型转换](shu-ju/lei-xing-zhuan-huan/README.md)
   * [C++中std::string转换为int类型](shu-ju/lei-xing-zhuan-huan/c++-zhong-stdstring-zhuan-huan-wei-int-lei-xing.md)
   * [C++中std::string转换为const char\*](shu-ju/lei-xing-zhuan-huan/c++-zhong-stdstring-zhuan-huan-wei-const-char.md)
+  * [C++ char\* 转换为 std::string](shu-ju/lei-xing-zhuan-huan/c++-char-zhuan-huan-wei-stdstring.md)
   * [C++ double或者int转为string](shu-ju/lei-xing-zhuan-huan/c++-double-huo-zhe-int-zhuan-wei-string.md)
   * [C++中四种cast类型转换](shu-ju/lei-xing-zhuan-huan/c++-zhong-si-zhong-cast-lei-xing-zhuan-huan.md)
 
