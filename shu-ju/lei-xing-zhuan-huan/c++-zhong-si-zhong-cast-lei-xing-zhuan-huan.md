@@ -78,6 +78,14 @@ double *pd  = new double();
 int * pi = static_cast<int*>(pd); //报错
 ```
 
+**但是允许void\*转为其他类型的指针**
+
+```cpp
+void* c = malloc(sizeof(int));
+int* p = static_cast<int*>(c);
+std::cout << *p <<std::endl; //0
+```
+
 上面的代码在编译时会报错，因为它不允许不同类型之间的指针或引用转换。对于有父子关系的类对象之间之所以可以转换是因为static\_cast把它们当做同一类型看待了。
 
 总结来说，**static\_cast主要用于不同类型变量之间的转换，指针和引用的转换不能用static\_cast，而应该用reinterpret\_cast。**
