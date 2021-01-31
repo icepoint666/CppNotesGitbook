@@ -24,7 +24,7 @@ private:
 
 ```cpp
 //在"Widget.h"中 
-class Widget{ 
+class Widget{  
 public: 
     Widget(); 
     ... 
