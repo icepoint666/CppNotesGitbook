@@ -83,7 +83,7 @@ typedef decltype(vec.begin()) vectype;
 struct 
 {
     int d ;
-    doubel b;
+    double b;
 }anon_s;
 ```
 
