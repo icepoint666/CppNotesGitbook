@@ -16,7 +16,7 @@ const常量具有类型，编译器可以进行安全检查
 
 ### const与extern的影响
 
-**const对象默认为文件局部变量**
+**const对象默认为                         文件局部变量**
 
 注意：非const变量默认为extern。要使const变量能够在其他文件中访问，必须在文件中显式地指定它为extern。
 
