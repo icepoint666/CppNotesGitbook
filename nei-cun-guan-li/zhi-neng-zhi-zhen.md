@@ -94,6 +94,71 @@ auto spw2 = wpw.lock(); // same as above, but uses auto
 * 潜在使用场景包括：caching、observer lists
 * 打破 std::shared\_ptr 指向循环，可打破环状引用（cycles of references，两个其实已经没有被使用的对象彼此互指，使之看似还在 “被使用” 的状态）的问题
 
+**循环引用**
+
+但是我们说了，shared\_ptr存在循环引用的问题。我们先介绍一下什么是shared\_ptr的循环引用。
+
+我们知道，智能指针shared\_ptr采用的是引用计数的方式，下面我们来写一个双向链表。
+
+```cpp
+struct Node
+{
+    int _value;
+    shared_ptr<Node> _next;
+    shared_ptr<Node> _prev;
+};
+
+int main()
+{
+    shared_ptr<Node> sp1(new Node);
+    shared_ptr<Node> sp2(new Node);
+
+    sp1->_next = sp2;
+    sp2->_prev = sp1;
+
+    cout<<sp1.use_count()<<endl; //引用计数-->2
+    cout << sp2.use_count() << endl;//引用计数-->2
+}
+```
+
+上面的代码我们定义了两个块空间，我们可以 分别成它们为Node1,Node2。p1，sp2，\_next，\_prev均为shared\_ptr类型的智能指针。sp1与sp2-&gt;prev都指向Node1，所以sp1的引用计数为2，同理sp1-&gt;\_next与sp2都指向Node2，所以sp2的引用计数也为2。
+
+![](../.gitbook/assets/20170811091949658.png)
+
+当我们想销毁这个链表或者删除某个节点时，我们应该怎么办？  
+当我们想销毁这个链表或者说销毁一个结点的时候，我们需要将引用计数置为1，假如，我们要delete sp2这块空间，我们需要将sp2的引用计数置为1，就是说我们需要将sp1-&gt;\_next这个指针销毁掉。把sp2-&gt;\_next销毁， 就意味着先要把sp1销毁。  
+如果想把sp1销毁，就要把sp1的引用计数置为1，所以，我们就要把sp2-&gt;\_prev销毁，要想把sp2-&gt;\_prev销毁，就代表先要把sp2销毁。  
+这样一来，我们就陷入了一个无限的循环当中。
+
+这就是所谓的shared\_ptr智能指针的循环引用问题。
+
+**weak\_ptr解决循环引用**
+
+weak\_ptr是为配合shared\_ptr而引入的一种智能指针来协助shared\_ptr工作，它可以从一个shared\_ptr或另一个weak\_ptr对象构造，它的构造和析构不会引起引用记数的增加或减少。  
+那我们怎么解决上面的问题呢？？  
+只需要把Node结点里面的指针定义为weak\_ptr类型就好，weak\_ptr的构造析构不会影响引用计数的大小，当我们采用这种方式时，sp1和sp2的引用计数始终为1，当我们想销毁时就可以随意操作啦。
+
+```cpp
+struct Node
+{
+    int _value;
+    weak_ptr<Node> _next;
+    weak_ptr<Node> _prev;
+};
+
+int main()
+{
+    shared_ptr<Node> sp1(new Node);
+    shared_ptr<Node> sp2(new Node);
+
+    sp1->_next = sp2;
+    sp2->_prev = sp1;
+
+    cout<<sp1.use_count()<<endl; //引用计数-->1
+    cout << sp2.use_count() << endl;//引用计数-->1
+}
+```
+
 ### **unique\_ptr**
 
 **核心特点：①只能通过移动操作来转移，没有拷贝操作 + ②unique\_ptr被销毁，资源对象也被销毁**
