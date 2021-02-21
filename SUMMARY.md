@@ -105,6 +105,7 @@
 * [C\#调用C++DLL函数，一般怎么封装这个DLL？](bu-chang-yong-zhi-shi/c-tiao-yong-c++dll-han-shu-yi-ban-zen-me-feng-zhuang-zhe-ge-dll.md)
 * [函数指针](bu-chang-yong-zhi-shi/han-shu-zhi-zhen.md)
 * [static \_\_inline\_\_ / extern \_\_inline](bu-chang-yong-zhi-shi/static-__inline__-extern-__inline.md)
+* [大小端模式](bu-chang-yong-zhi-shi/da-xiao-duan-mo-shi.md)
 
 ## 项目阅读笔记 <a id="xiang-mu-yue-du-bi-ji-1"></a>
 
