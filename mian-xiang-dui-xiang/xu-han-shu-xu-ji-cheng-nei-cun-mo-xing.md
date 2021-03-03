@@ -1,4 +1,6 @@
-# 虚函数，虚继承内存模型
+# 虚函数，虚函数内存模型
+
+**可以重点看这篇文章：**[**https://mp.weixin.qq.com/s/NyNHXIrEjG7vcAS8wZxU2Q**](https://mp.weixin.qq.com/s/NyNHXIrEjG7vcAS8wZxU2Q)\*\*\*\*
 
 * 单继承内存模型
 * 多继承内存模型
