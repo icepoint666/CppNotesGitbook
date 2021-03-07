@@ -55,7 +55,7 @@
 ## 内存管理
 
 * [栈与堆](nei-cun-guan-li/zhan-yu-dui.md)
-* [C++ 垃圾回收\(gc\)](nei-cun-guan-li/c++-la-ji-hui-shou-gc.md)
+* [C++ 垃圾回收\(gc\),野指针](nei-cun-guan-li/c++-la-ji-hui-shou-gc.md)
 * [RAII思想](nei-cun-guan-li/raii-si-xiang.md)
 * [malloc、calloc、realloc、alloca](nei-cun-guan-li/malloc-calloc-realloc-alloca.md)
 * [new, delete, 定位 new](nei-cun-guan-li/new-delete-ding-wei-new.md)
