@@ -178,6 +178,19 @@ p3.reset();//释放内存.
 p1.reset();//无效
 ```
 
+**释放方法**
+
+注意！注意！注意！这里的释放并不会摧毁其指向的对象，而且将其指向的对象释放出去。
+
+```cpp
+std::unique_ptr::release
+std::unique_ptr<int> auto_pointer (new int);
+int * manual_pointer;
+*auto_pointer=10;
+manual_pointer = auto_pointer.release();
+// (auto_pointer is now empty)
+```
+
 **unique\_ptr初始化（不能直接new T\(\)返回,  C++11需要自定义一个std::make\_unique函数\)**
 
 ```cpp
