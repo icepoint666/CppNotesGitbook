@@ -1,8 +1,6 @@
 # Table of contents
 
 * [INTRO](README.md)
-* [知识树](zhi-shi-shu.md)
-* [相关链接](xiang-guan-lian-jie.md)
 
 ## 语言相关
 
